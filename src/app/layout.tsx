@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { natoSansKR } from "@/fonts/fonts";
+import { cn } from "@/lib/utils";
+import Providers from "@/lib/providers";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -11,12 +11,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  ...props
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={cn(
+          natoSansKR.className,
+          "h-screen overflow-hidden bg-background font-sans antialiased",
+        )}
+      >
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
