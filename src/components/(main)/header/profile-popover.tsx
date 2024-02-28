@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/popover";
 import React from "react";
 import ProfileAvatar from "./profile-avatar";
-import { useSessionEx } from "@/lib/hooks/useSessionEx";
+import { useSessionEx } from "@/lib/hooks/use-session-ex";
 import Logo from "@/components/custom/logo";
 import { signOut } from "next-auth/react";
 
@@ -36,7 +36,7 @@ export default function ProfilePopover({ trigger }: Props) {
           </div>
 
           <div className="flex items-center gap-4">
-            <ProfileAvatar className="h-16 w-16" />
+            <ProfileAvatar className="!h-16 !w-16" />
             <div>
               <div className="py-1 text-xl font-bold">
                 {`${sessionUser?.name}(${user?.localId})`}

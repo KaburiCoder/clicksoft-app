@@ -7,6 +7,7 @@ import { formatYmdToShort } from "@/lib/utils/format-texts";
 import { PatientInfo } from "@/sockets/models/patient-info";
 import usePatientStore from "@/stores/patient.store";
 import { useRouter } from "next/navigation";
+import { useSearchDataStore } from "@/stores/search-data.store";
 
 interface Props {
   patientInfo: PatientInfo;
@@ -25,8 +26,10 @@ export default function UserItem({ patientInfo }: Props) {
     wardName,
     yuhyungName,
   } = Object.assign(new PatientInfo(), patientInfo);
+  const { clearAll } = useSearchDataStore();
 
   function handleSelectPatient() {
+    clearAll();
     setPatientInfo(patientInfo);
     back();
   }

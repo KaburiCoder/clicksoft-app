@@ -1,6 +1,4 @@
-import { RoomBaseDto } from "./_room-base.dto";
-
-export class GetPatientInfoDto extends RoomBaseDto {
+export class GetPatientInfoDto {
   weib!: Weib;
 }
 

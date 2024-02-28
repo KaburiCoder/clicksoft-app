@@ -1,12 +1,11 @@
-import { useSessionEx } from "@/lib/hooks/useSessionEx";
-import { evPaths } from "@/paths";
+import { useSessionEx } from "@/lib/hooks/use-session-ex";
+import { emitPaths } from "@/paths";
 import { GetPatientInfoDto, Weib } from "@/sockets/dtos/get-patient-info.dto";
 import { useSocket } from "@/sockets/socket.provider";
 import { useState } from "react";
 import { PatientInfo } from "@/sockets/models/patient-info";
-import { GetPatientInfoResult } from "@/sockets/results/get-patient-info.result";
-import { DataType } from "@/sockets/dtos/_room-base.dto";
 import { extractNumbersFromString } from "@/lib/utils/format-texts";
+import { AppResult } from "@/sockets/results/app.result";
 
 export const useSearchUserHook = () => {
   const { user } = useSessionEx();
@@ -20,12 +19,9 @@ export const useSearchUserHook = () => {
 
     try {
       setIsPending(true);
-      let result: GetPatientInfoResult = await socket?.emitWithAck(
-        evPaths.getPatientInfo,
+      let result: AppResult<PatientInfo> = await socket?.emitWithAck(
+        emitPaths.getPatientInfo,
         {
-          key: user.key,
-          localId: user.localId,
-          dataType: DataType.WEB,
           weib,
         } satisfies GetPatientInfoDto,
       );
@@ -33,7 +29,7 @@ export const useSearchUserHook = () => {
       if (result.status === "error") {
         throw new Error(result.message);
       }
-      setBasePatientInfos(result.patientInfos);
+      setBasePatientInfos(result.dataList);
     } catch (error) {
       console.log(error);
     } finally {

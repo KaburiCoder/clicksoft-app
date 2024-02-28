@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./_styles/index";
 import { natoSansKR } from "@/fonts/fonts";
 import { cn } from "@/lib/utils";
 import Providers from "@/lib/providers";

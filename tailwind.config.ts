@@ -20,12 +20,19 @@ const config = {
     },
     extend: {
       height: {
-        header: "3rem",
+        header: "3.5rem",
+        "header-item": "3rem",
+      },
+      width: {
+        "header-item": "3rem",
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       colors: {
+        green: {
+          "25": "rgb(250, 255, 250)", // 더 연한 그린 색상
+        },
         error: "hsl(var(--error))",
         border: {
           DEFAULT: "hsl(var(--border))",
@@ -37,6 +44,7 @@ const config = {
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
+          sm: "hsl(var(--primary-sm))",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {

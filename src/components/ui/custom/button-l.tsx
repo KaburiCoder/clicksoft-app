@@ -40,7 +40,7 @@ export default function ButtonL({
       className={cn(
         "flex items-center",
         iconSide === "top" ? "flex-col gap-0.5" : "gap-1",
-        className
+        className,
       )}
       disabled={disabled || showLoading}
       {...props}
@@ -52,7 +52,7 @@ export default function ButtonL({
         </div>
       )}
 
-      <div>{children}</div>
+      {children}
     </Button>
   );
 }

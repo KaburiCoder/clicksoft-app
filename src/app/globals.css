@@ -13,6 +13,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
+    --primary-sm: 142 69% 58%;
     --primary: 144 60% 50%;
     --primary-foreground: 210 40% 98%;
 
@@ -36,7 +37,7 @@
 
     --radius: 0.5rem;
 
-    --scroll-color: #afafaf;
+    --scroll-color: #67c964;
     --scroll-background: transparent;
   }
 
@@ -83,14 +84,6 @@
   }
 }
 
-@layer utilities {
-  .flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
 input {
   outline: none;
 }
@@ -102,7 +95,7 @@ input {
   appearance: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   /* 세로 스크롤바 스타일 변경 */
   ::-webkit-scrollbar {
     width: 10px; /* 세로 스크롤바 너비 */

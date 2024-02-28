@@ -15,7 +15,7 @@ export default function UserItemList({ patientInfos, isPending }: Props) {
     : patientInfos?.map((p, i) => <UserItem key={i} patientInfo={p} />);
 
   return (
-    <div className="flex flex-1 flex-col gap-2 overflow-auto">
+    <div className="flex flex-1 flex-col gap-2 overflow-auto px-2">
       {pinfoComponents}
     </div>
   );

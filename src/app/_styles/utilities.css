@@ -1,0 +1,21 @@
+@tailwind utilities;
+
+@layer utilities {
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .header-item {
+    @apply h-header-item;
+    @apply w-header-item;
+  }
+
+  .header-item-border {
+    @apply border;
+    @apply border-solid;
+    @apply border-primary/50;
+    @apply rounded;
+  }
+}

@@ -7,25 +7,25 @@ import UserItemList from "./user-item-list";
 import { RadioButton } from "@/components/custom/radio-button";
 import { Weib } from "@/sockets/dtos/get-patient-info.dto";
 import { useSearchUserHook } from "./use-search-user.hook";
-import { useSessionEx } from "@/lib/hooks/useSessionEx";
+import { JoinRoomState, useSocket } from "@/sockets/socket.provider";
 
 export default function SearchUser() {
   const { search, isPending, emitGetPatientInfo, patientInfos } =
     useSearchUserHook();
-  const { user } = useSessionEx();
+  const { joinRoomState } = useSocket();
   const defaultWeib = Weib.입원;
 
   useEffect(() => {
-    if (!user) return;
+    if (joinRoomState !== JoinRoomState.JOIN) return;
     emitGetPatientInfo(defaultWeib);
-  }, [user]);
+  }, [joinRoomState]);
 
   function handleSearch(text: string): void {
     search(text);
   }
 
   return (
-    <MainWrapper className="flex h-full flex-col gap-2 overflow-hidden py-2">
+    <MainWrapper className="gap-2 p-2">
       <SearchInput onChange={handleSearch} />
       <RadioButton
         isPending={isPending}

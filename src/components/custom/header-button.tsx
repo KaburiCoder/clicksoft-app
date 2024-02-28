@@ -7,13 +7,13 @@ import { ChildrenClassNameProps, ChildrenProps } from "@/lib/props/base-props";
 interface Props extends ChildrenClassNameProps {
   onClick?: () => void;
 }
-export default function RoundButton({ className, children, onClick }: Props) {
+export default function HeaderButton({ className, children, onClick }: Props) {
   return (
     <ButtonL
       onClick={onClick}
       variant={"ghost"}
       className={cn(
-        "flex-center h-10 w-10 overflow-hidden rounded-full p-2",
+        "flex-center header-item overflow-hidden rounded border border-solid border-primary/30 p-2",
         "hover:cursor-pointer",
         className,
       )}

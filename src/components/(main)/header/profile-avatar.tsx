@@ -1,13 +1,8 @@
-import IconPersonCircle from "@/components/custom/icon-person.circle";
-import RoundButton from "@/components/custom/round-button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { imgPaths } from "@/paths";
-
-import { CircleUserRound } from "lucide-react";
-import Image from "next/image";
+import { CircleUserRound, UserRound } from "lucide-react";
 import React from "react";
 import ProfilePopover from "./profile-popover";
-import { useSessionEx } from "@/lib/hooks/useSessionEx";
+import { useSessionEx } from "@/lib/hooks/use-session-ex";
 import { ClassNameProps } from "@/lib/props/base-props";
 import { cn } from "@/lib/utils";
 
@@ -21,11 +16,16 @@ export default function ProfileAvatar({ className, usePopover }: Props) {
   if (status !== "authenticated") return <CircleUser />;
 
   const avatarComponent = src ? (
-    <Avatar className={cn("h-10 w-10 hover:cursor-pointer", className)}>
+    <Avatar className={cn("header-item hover:cursor-pointer", className)}>
       <AvatarImage src={src} />
     </Avatar>
   ) : (
-    <CircleUser className={className} />
+    <UserRound
+      className={cn(
+        "header-item header-item-border bg-green-200 p-2 text-white",
+        className,
+      )}
+    />
   );
 
   if (usePopover) {
@@ -37,7 +37,7 @@ export default function ProfileAvatar({ className, usePopover }: Props) {
 function CircleUser({ className }: ClassNameProps) {
   return (
     <CircleUserRound
-      className={cn("h-10 w-10 p-1 text-slate-500", className)}
+      className={cn("header-item p-1 text-slate-500", className)}
     />
   );
 }

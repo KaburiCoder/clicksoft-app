@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useSessionEx } from "@/lib/hooks/useSessionEx";
+import { useSessionEx } from "@/lib/hooks/use-session-ex";
 import SearchUserButton from "./search-user-button";
 import { ChildrenProps } from "@/lib/props/base-props";
 import NavBackButton from "./nav-back-button";
@@ -20,7 +20,7 @@ export default function MainHeader({
   return (
     <header className="mx-auto flex h-header w-full items-center justify-between overflow-hidden px-4 py-2">
       {!hideBackButton && <NavBackButton />}
-      <div>{children}</div>
+      <h2 className="font-bold">{children}</h2>
       <div className="flex items-center gap-1">
         {!hideSearchUserButton && <SearchUserButton />}
 
