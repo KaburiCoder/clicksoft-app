@@ -1,17 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import MainWrapper from "../main-wrapper";
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
 import UserItemList from "./user-item-list";
 import { RadioButton } from "@/components/custom/radio-button";
 import { Weib } from "@/sockets/dtos/get-patient-info.dto";
 import { useSearchUserHook } from "./use-search-user.hook";
 import { JoinRoomState, useSocket } from "@/sockets/socket.provider";
+import { useVirtualized } from "@/lib/hooks/use-virtualized";
+import { PatientInfo } from "@/sockets/models/patient-info";
+import { SearchInput } from "./search-input";
 
 export default function SearchUser() {
-  const { search, isPending, emitGetPatientInfo, patientInfos } =
-    useSearchUserHook();
+  const [searchText, setSearchText] = useState<string>();
+  const { isPending, emitGetPatientInfo, patientInfos } = useSearchUserHook({
+    searchText,
+  });
   const { joinRoomState } = useSocket();
   const defaultWeib = Weib.입원;
 
@@ -20,13 +23,14 @@ export default function SearchUser() {
     emitGetPatientInfo(defaultWeib);
   }, [joinRoomState]);
 
-  function handleSearch(text: string): void {
-    search(text);
-  }
+  const { inViewEl, items } = useVirtualized<PatientInfo>({
+    baseItems: patientInfos,
+    count: 20,
+  });
 
   return (
     <MainWrapper className="gap-2 p-2">
-      <SearchInput onChange={handleSearch} />
+      <SearchInput onChange={setSearchText} />
       <RadioButton
         isPending={isPending}
         defaultValue={defaultWeib.toString()}
@@ -39,37 +43,11 @@ export default function SearchUser() {
           emitGetPatientInfo(+weib as Weib);
         }}
       />
-      <UserItemList patientInfos={patientInfos} isPending={isPending} />
+      <UserItemList
+        patientInfos={items}
+        isPending={isPending}
+        bottomComponents={inViewEl}
+      />
     </MainWrapper>
-  );
-}
-
-function SearchInput({
-  delayMs = 500,
-  onChange,
-}: {
-  delayMs?: number;
-  onChange: (text: string) => void;
-}) {
-  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
-
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
-
-    const newTimeout = setTimeout(() => {
-      onChange(e.target.value);
-    }, delayMs);
-
-    setTimeoutId(newTimeout);
-  }
-
-  return (
-    <Input
-      icon={Search}
-      placeholder="이름, 차트번호, 생년월일 등.."
-      onChange={handleChange}
-    />
   );
 }

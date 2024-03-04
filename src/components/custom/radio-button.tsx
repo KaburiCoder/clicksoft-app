@@ -44,7 +44,7 @@ export function RadioButton({
     const uncheckedClass = "bg-secondary hover:bg-secondary/90";
     return (
       <label
-        key={i}
+        key={`${item.value}`}
         className={cn(commonClass, checked ? checkedClass : uncheckedClass)}
       >
         <input

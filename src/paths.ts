@@ -6,6 +6,8 @@ export const paths = {
   searchUser: "/search-user",
   progressNote: "/progress-note",
   nursingRecord: "/nursing-record",
+  vitalSign: "/vital-sign",
+  ioSheet: "/io-sheet",
 };
 
 export const emitPaths = {
@@ -14,6 +16,8 @@ export const emitPaths = {
   getPatientInfo: "getPatientInfo",
   getProgressNote: "getProgressNote",
   getNursingRecord: "getNursingRecord",
+  getVitalSign: "getVitalSign",
+  getIOSheet: "getIOSheet",
 };
 
 export const imgPaths = {

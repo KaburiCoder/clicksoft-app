@@ -1,0 +1,25 @@
+.table {
+  border: 1px solid lightgray;
+}
+
+.table tbody {
+  border-bottom: 1px solid lightgray;
+}
+
+.table th {
+  border-bottom: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+  padding: 2px 4px;
+}
+
+.table tfoot {
+  color: gray;
+}
+
+.table tfoot th {
+  font-weight: normal;
+}
+
+.table .column-ymd {
+  width: 200px;
+}

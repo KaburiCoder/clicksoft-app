@@ -28,7 +28,7 @@ export default function AccountHero({
 }: Props) {
   const { back } = useRouter();
   const subTitleComponents = subTitles?.map((st, i) => (
-    <p key={i} className="text-sm text-primary/70">
+    <p key={`${st}${i}`} className="text-sm text-primary/70">
       {st}
     </p>
   ));
@@ -80,7 +80,7 @@ function LinkComponents({ type }: { type: HeroType }) {
 
   if (type !== "SignUp") {
     linkComponents.push(
-      <Link key={type} href={"/signup"} className="text-sm text-slate-500">
+      <Link key="/signup" href={"/signup"} className="text-sm text-slate-500">
         회원가입
       </Link>,
     );
@@ -88,11 +88,11 @@ function LinkComponents({ type }: { type: HeroType }) {
 
   if (type !== "FindPassword") {
     linkComponents.push(
-      <Link href={"/findpw"} className="text-sm text-slate-500">
+      <Link key="/findpw" href={"/findpw"} className="text-sm text-slate-500">
         비밀번호 찾기
       </Link>,
     );
   }
 
-  return linkComponents.map((c, i) => <Fragment key={i}>{c}</Fragment>);
+  return linkComponents;
 }

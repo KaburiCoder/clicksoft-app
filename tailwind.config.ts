@@ -19,6 +19,19 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        xxs: "360px",
+        xs: "480px",
+        sm: "640px",
+        md: "768px",
+        md2: "896px",
+        lg: "1024px",
+        lg2: "1152px",
+        xl: "1280px",
+        xl2: "1408px",
+        "2xl": "1536px",
+        "3xl": "1600px",
+      },
       height: {
         header: "3.5rem",
         "header-item": "3rem",

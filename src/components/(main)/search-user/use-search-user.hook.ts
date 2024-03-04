@@ -2,12 +2,15 @@ import { useSessionEx } from "@/lib/hooks/use-session-ex";
 import { emitPaths } from "@/paths";
 import { GetPatientInfoDto, Weib } from "@/sockets/dtos/get-patient-info.dto";
 import { useSocket } from "@/sockets/socket.provider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PatientInfo } from "@/sockets/models/patient-info";
 import { extractNumbersFromString } from "@/lib/utils/format-texts";
 import { AppResult } from "@/sockets/results/app.result";
 
-export const useSearchUserHook = () => {
+interface Args {
+  searchText: string | undefined;
+}
+export const useSearchUserHook = ({ searchText }: Args) => {
   const { user } = useSessionEx();
   const { socket } = useSocket();
   const [isPending, setIsPending] = useState(false);
@@ -31,27 +34,32 @@ export const useSearchUserHook = () => {
       }
       setBasePatientInfos(result.dataList);
     } catch (error) {
+      setBasePatientInfos(undefined);
       console.log(error);
     } finally {
       setIsPending(false);
     }
   }
 
-  function search(text: string) {
+  useEffect(() => {
+    if (!searchText) {
+      setPatientInfos(basePatientInfos);
+      return;
+    }
+
     const includesText = (target: string, value: string) =>
       target?.toLowerCase().includes(value?.toLowerCase());
-    const textNumbers = extractNumbersFromString(text);
+    const textNumbers = extractNumbersFromString(searchText);
     const searchedData = basePatientInfos?.filter(
       (p) =>
-        includesText(p.suName, text) ||
+        includesText(p.suName, searchText) ||
         (textNumbers && includesText(p.birthday, textNumbers)) ||
         (textNumbers && includesText(p.chartNo, textNumbers)),
     );
     setPatientInfos(searchedData);
-  }
+  }, [basePatientInfos, searchText]);
 
   return {
-    search,
     isPending,
     patientInfos: patientInfos ?? basePatientInfos,
     emitGetPatientInfo,

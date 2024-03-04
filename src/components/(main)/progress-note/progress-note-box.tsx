@@ -1,5 +1,6 @@
 import { ProgressNote } from "@/sockets/models/progress-note";
 import React from "react";
+import SearchDataHeader from "../search-data-header";
 
 interface Props {
   progressNote: ProgressNote;
@@ -10,26 +11,16 @@ export default function ProgressNoteBox({ progressNote }: Props) {
     progressNote;
 
   return (
-    <div className="border border-solid border-primary-sm shadow-xl">
-      <div className="flex flex-wrap gap-x-4 gap-y-1 bg-slate-50 p-2">
-        <div className="flex flex-col">
-          <div className="text-sm text-slate-500">작성일자</div>
-          <div className="font-semibold text-blue-500">{writeDateFullText}</div>
-        </div>
-        <div className="flex flex-col">
-          <div className="text-sm text-slate-500">작성자</div>
-          <div className="font-semibold text-blue-500">{writer}</div>
-        </div>
-        <div className="flex flex-col">
-          <div className="text-sm text-slate-500">유형</div>
-          <div className="font-semibold text-blue-500">{typeName}</div>
-        </div>
-        <div className="flex flex-col">
-          <div className="text-sm text-slate-500">진료의</div>
-          <div className="font-semibold text-blue-500">{doctorName}</div>
-        </div>
-      </div>
-      <div className="bg-white p-2 whitespace-pre-wrap">{detail}</div>
+    <div className="border-primary-sm border border-solid shadow-xl">
+      <SearchDataHeader
+        contents={[
+          { title: "작성일자", text: writeDateFullText },
+          { title: "작성자", text: writer },
+          { title: "유형", text: typeName },
+          { title: "진료의", text: doctorName },
+        ]}
+      />
+      <div className="whitespace-pre-wrap bg-white p-2">{detail}</div>
     </div>
   );
 }

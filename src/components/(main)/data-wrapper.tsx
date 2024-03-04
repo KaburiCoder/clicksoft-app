@@ -9,8 +9,8 @@ export interface DataWrapperProps extends ChildrenProps {
 
 const DataWrapper = React.forwardRef<HTMLDivElement, DataWrapperProps>(
   ({ error, isPending, children }: DataWrapperProps, ref) => {
-    if (isPending) return <LottieSearch />;
     if (error) throw new Error(error);
+    if (isPending) return <LottieSearch />;
 
     return (
       <div

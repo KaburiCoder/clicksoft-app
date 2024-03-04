@@ -13,6 +13,7 @@ import dayjs, { ManipulateType } from "dayjs";
 import { DateRangeType } from "@/lib/types/date.types";
 import { cn } from "@/lib/utils";
 import { Calendar } from "../calendar";
+import { PopoverClose } from "@radix-ui/react-popover";
 
 interface Props {
   onDateChange: (date?: DateRangeType) => void;
@@ -70,53 +71,26 @@ export function DateRangePicker({
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
-          <div className="flex justify-center gap-1 py-1">
-            <Button
-              className="p-2"
-              variant={"outline"}
-              onClick={() => {
-                setTerm(-1, "week");
-              }}
-            >
+          <PopoverClose className="flex mx-auto justify-center gap-1 py-1">
+            <TermButton setDate={setDate} value={-1} unit="week">
               1주
-            </Button>
-            <Button
-              className="p-2"
-              variant={"outline"}
-              onClick={() => {
-                setTerm(-1, "month");
-              }}
-            >
+            </TermButton>
+            <TermButton setDate={setDate} value={-1} unit="month">
               1달
-            </Button>
-            <Button
-              className="p-2"
-              variant={"outline"}
-              onClick={() => {
-                setTerm(-3, "month");
-              }}
-            >
+            </TermButton>
+            <TermButton setDate={setDate} value={-3} unit="month">
               3달
-            </Button>
-            <Button
-              className="p-2"
-              variant={"outline"}
-              onClick={() => {
-                setTerm(-6, "month");
-              }}
-            >
+            </TermButton>
+            <TermButton setDate={setDate} value={-6} unit="month">
               6달
-            </Button>
-            <Button
-              className="p-2"
-              variant={"outline"}
-              onClick={() => {
-                setTerm(-1, "year");
-              }}
-            >
+            </TermButton>
+            <TermButton setDate={setDate} value={-1} unit="year">
               1년
-            </Button>
-          </div>
+            </TermButton>
+            <TermButton setDate={setDate} value={-10} unit="year">
+              10년
+            </TermButton>
+          </PopoverClose>
           <Calendar
             initialFocus
             mode="range"
@@ -130,6 +104,36 @@ export function DateRangePicker({
           />
         </PopoverContent>
       </Popover>
+    </div>
+  );
+}
+
+function TermButton({
+  value,
+  unit,
+  children,
+  setDate,
+}: {
+  value: number;
+  unit: ManipulateType;
+  children: React.ReactNode;
+  setDate: React.Dispatch<React.SetStateAction<DateRangeType | undefined>>;
+}) {
+  function setTerm(value: number, unit: ManipulateType) {
+    setDate({
+      from: dayjs().add(value, unit).add(1, "d").toDate(),
+      to: dayjs().toDate(),
+    });
+  }
+
+  return (
+    <div
+      className="rounded-xl border border-primary-sm p-2 text-sm hover:bg-primary hover:text-primary-foreground"
+      onClick={() => {
+        setTerm(value, unit);
+      }}
+    >
+      {children}
     </div>
   );
 }
