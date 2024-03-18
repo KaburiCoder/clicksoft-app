@@ -1,4 +1,5 @@
 export class VitalSign {
+  id!: string;
   writeDateFullText!: string;
   managerName!: string;
   details!: VitalSignDetail[];

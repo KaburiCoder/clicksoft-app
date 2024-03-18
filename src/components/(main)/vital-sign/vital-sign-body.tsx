@@ -8,21 +8,24 @@ import { emitPaths } from "@/paths";
 import { VitalSign } from "@/sockets/models/vital-sign";
 
 export default function VitalSignBody() {
-  const { handleSearch, isPending, error } = useEmit<VitalSign>({
-    eventName: emitPaths.getVitalSign,
-  });
   const { vitalSign } = useSearchDataStore();
+  const { items, dates, inViewEl, handleSearch, isPending, error } =
+    useEmit<VitalSign>({
+      eventName: emitPaths.getVitalSign,
+      searchState: vitalSign,
+    });
 
-  const components = vitalSign?.data?.map((vs) => (
-    <VitalSignBox key={`${vs.writeDateFullText}_${vs.managerName}`} {...vs} />
+  const components = items?.map((vs) => (
+    <VitalSignBox key={vs.id} {...vs} />
   ));
 
   return (
     <SearchWrapper
-      defaultDateRange={vitalSign?.dates}
+      defaultDateRange={dates}
       onSearch={handleSearch}
       isPending={isPending}
       error={error}
+      inViewEl={inViewEl}
     >
       <div className="flex flex-col gap-2">{components}</div>
     </SearchWrapper>

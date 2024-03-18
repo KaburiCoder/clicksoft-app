@@ -1,6 +1,8 @@
 $borderColor: hsl(var(--primary));
 
 .table {
+  border-collapse: separate !important;
+  border-spacing: 0;
   border-left: 1px solid $borderColor;
   margin-bottom: 10px;
   // border-collapse: separate;
@@ -8,17 +10,23 @@ $borderColor: hsl(var(--primary));
 
 .table thead {
   position: sticky;
-  z-index: 1;
+  z-index: 2;
   top: 0;
 }
 
 .table thead th {
-  background-color: rgb(248, 255, 248);
-  /* background: hsl(var(--primary-sm)); */
-  /* border: 1px solid transparent; */
-  border-bottom: 1px solid transparent;
-  border-right: 1px solid transparent;
+  // background-color: rgb(248, 255, 248);
+  // background: hsl(var(--primary-sm));
+  // border: 1px solid blue;
+  // border-top: 1px solid $borderColor;
+  border-bottom: 1px solid $borderColor;
+  border-right: 1px solid $borderColor;
+  position: relative;
   /* padding: 0 4px 2px 4px; */
+}
+
+.table thead th.top {
+  border-top: 1px solid $borderColor;
 }
 
 .table thead th::before {
@@ -28,7 +36,7 @@ $borderColor: hsl(var(--primary));
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: $borderColor;
+  // background-color: $borderColor;
   z-index: -1;
 }
 
@@ -39,8 +47,8 @@ $borderColor: hsl(var(--primary));
   left: 0;
   width: 100%;
   height: 100%;
-  border-top: 1px solid $borderColor;
-  border-bottom: 1px solid $borderColor;
+  // border-top: 1px solid $borderColor;
+  // border-bottom: 1px solid $borderColor;
   z-index: 1;
 }
 

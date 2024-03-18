@@ -78,7 +78,6 @@ export default function SocketProvider({ children }: ChildrenProps) {
     setSocket(socket);
 
     return () => {
-      socket.disconnect();
       setSocket(null);
     };
   }, []);

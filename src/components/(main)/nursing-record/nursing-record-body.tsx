@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import NursingRecordBox from "./nursing-record.box";
 import { NursingRecord } from "@/sockets/models/nursing-record";
 import { useEmit } from "@/lib/hooks/use-emit";
@@ -8,27 +8,24 @@ import SearchWrapper from "../search-wrapper";
 import { useSearchDataStore } from "@/stores/search-data.store";
 
 export default function NursingRecordBody() {
-  const { handleSearch, isPending, error } = useEmit<NursingRecord>({
-    eventName: emitPaths.getNursingRecord,
-  });
-
   const { nursingRecord } = useSearchDataStore();
+  const { dates, items, inViewEl, handleSearch, isPending, error } =
+    useEmit<NursingRecord>({
+      eventName: emitPaths.getNursingRecord,
+      searchState: nursingRecord,
+    });
 
-  const nursingRecordComponents = nursingRecord?.data?.map(
-    (nursingRecord, i) => (
-      <NursingRecordBox
-        key={`${nursingRecord.writeDateFullText}${i}`}
-        nursingRecord={nursingRecord}
-      />
-    ),
-  );
+  const nursingRecordComponents = items?.map((ns) => (
+    <NursingRecordBox key={ns.id} nursingRecord={ns} />
+  ));
 
   return (
     <SearchWrapper
-      defaultDateRange={nursingRecord?.dates}
+      defaultDateRange={dates}
       onSearch={handleSearch}
       isPending={isPending}
       error={error}
+      inViewEl={inViewEl}
     >
       {nursingRecordComponents}
     </SearchWrapper>

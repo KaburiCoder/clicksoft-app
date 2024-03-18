@@ -36,13 +36,6 @@ export function DateRangePicker({
     onDateChange(date);
   }, [date, onDateChange]);
 
-  function setTerm(value: number, unit: ManipulateType) {
-    setDate({
-      from: dayjs().add(value, unit).add(1, "d").toDate(),
-      to: dayjs().toDate(),
-    });
-  }
-
   return (
     <div className={cn("grid gap-2", className)}>
       <Popover>
@@ -71,7 +64,7 @@ export function DateRangePicker({
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
-          <PopoverClose className="flex mx-auto justify-center gap-1 py-1">
+          <PopoverClose className="mx-auto flex justify-center gap-1 py-1">
             <TermButton setDate={setDate} value={-1} unit="week">
               1주
             </TermButton>

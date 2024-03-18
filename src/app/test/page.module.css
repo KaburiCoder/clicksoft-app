@@ -23,3 +23,7 @@
 .table .column-ymd {
   width: 200px;
 }
+
+.table tbody td {
+  border: 1px solid lightgray;
+}

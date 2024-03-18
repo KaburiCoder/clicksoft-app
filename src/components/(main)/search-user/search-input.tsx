@@ -25,6 +25,7 @@ export function SearchInput({
 
   return (
     <Input
+      autoFocus
       icon={Search}
       placeholder="이름, 차트번호, 생년월일 등.."
       onChange={handleChange}

@@ -18,4 +18,8 @@
     @apply border-primary/50;
     @apply rounded;
   }
+
+  .overflow-wrap-anywhere {
+    overflow-wrap: anywhere;
+  }
 }

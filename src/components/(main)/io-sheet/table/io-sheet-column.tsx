@@ -10,6 +10,7 @@ export const ioSheetTableColumns = [
     meta: {
       align: "center",
     },
+    minSize: 100,
     enableGrouping: true,
   }),
   columnHelper.accessor("shift", {
@@ -145,15 +146,15 @@ export const ioSheetTableColumns = [
             id: "outputs.urine.frequency",
             header: () => "횟수",
             meta: {
-              align: 'right'
-            }
+              align: "right",
+            },
           }),
           columnHelper.accessor((row) => row.outputs?.urine?.cc, {
             id: "outputs.urine.cc",
             header: () => "cc",
             meta: {
-              align: 'right'
-            }
+              align: "right",
+            },
           }),
         ],
       }),
@@ -165,15 +166,15 @@ export const ioSheetTableColumns = [
             id: "outputs.stool.frequency",
             header: () => "횟수",
             meta: {
-              align: 'right'
-            }
+              align: "right",
+            },
           }),
           columnHelper.accessor((row) => row.outputs?.stool?.cc, {
             id: "outputs.stool.cc",
             header: () => "cc",
             meta: {
-              align: 'right'
-            }
+              align: "right",
+            },
           }),
         ],
       }),
@@ -185,15 +186,15 @@ export const ioSheetTableColumns = [
         id: "outputs.etc",
         header: () => "Etc.",
         meta: {
-          align: 'right'
-        }
+          align: "right",
+        },
       }),
       columnHelper.accessor((row) => row.outputs?.total, {
         id: "outputs.total",
         header: () => "Total",
         meta: {
-          align: 'right'
-        }
+          align: "right",
+        },
       }),
     ],
   }),

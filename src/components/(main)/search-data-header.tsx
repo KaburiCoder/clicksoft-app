@@ -1,13 +1,11 @@
+import { ContentInfo } from "@/sockets/models/content-info";
 import React from "react";
 
-interface Props {
-  contents: {
-    title: string;
-    text: string;
-  }[];
+export interface SearchDataHeaderProps {
+  contents: ContentInfo[];
 }
 
-export default function SearchDataHeader({ contents }: Props) {
+export default function SearchDataHeader({ contents }: SearchDataHeaderProps) {
   const componets = contents.map((c) => (
     <div key={c.title} className="flex flex-col">
       <div className="text-sm text-slate-500">{c.title}</div>

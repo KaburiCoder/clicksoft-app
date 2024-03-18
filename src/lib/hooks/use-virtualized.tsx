@@ -1,20 +1,21 @@
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { cn } from "../utils";
 interface Props<T> {
   baseItems: T[] | undefined;
   count: number;
+  test?: boolean;
 }
 
-export function useVirtualized<T>({ baseItems, count }: Props<T>) {
+export function useVirtualized<T>({ baseItems, count, test }: Props<T>) {
   const [items, setItems] = useState<T[]>();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false });
+  const { inView, ref } = useInView({ threshold: 0 });
   const isFirstRef = useRef<boolean>(true);
 
-  console.log(isInView);
-
   useEffect(() => {
-    if (!items || items.length === 0) return;
+    if (!items || items.length === 0) {
+      if (baseItems?.length === 0) return;
+    }
 
     if (!isFirstRef.current) {
       setItems(undefined);
@@ -23,7 +24,7 @@ export function useVirtualized<T>({ baseItems, count }: Props<T>) {
   }, [baseItems]);
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!inView) return;
 
     setItems((prevItems) => {
       const itemsLength = prevItems?.length ?? 0;
@@ -31,18 +32,24 @@ export function useVirtualized<T>({ baseItems, count }: Props<T>) {
 
       return [...(prevItems ?? []), ...(sliceItems ?? [])];
     });
-  }, [isInView, baseItems, setItems, count]);
+  }, [inView, baseItems, setItems, count]);
 
   const inViewEl = (
     <div
       ref={ref}
-      className={items?.length === baseItems?.length ? "" : "pt-1"}
-    />
+      className={cn(
+        items?.length === baseItems?.length ? "" : "pt-1",
+        test ? "bg-red-500" : "",
+      )}
+    >
+      {test ? inView.toString() : undefined}
+    </div>
   );
 
   return {
+    ref,
     inViewEl,
-    isInView,
+    isInView: inView,
     items,
   };
 }

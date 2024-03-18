@@ -48,7 +48,7 @@ export const SearchControl = React.forwardRef<
         onDateChange={setDateRange}
         defaultDateRange={defaultDateRange}
       />
-      <ButtonL onClick={handleSearch}>조회</ButtonL>
+      <ButtonL onClick={handleSearch} isLoading={isPending}>조회</ButtonL>
     </div>
   );
 });

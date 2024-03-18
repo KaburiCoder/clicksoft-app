@@ -1,7 +1,5 @@
 export class NursingRecord {
-  /**
-   * 작성일자
-   */
+  id!: string;
   writeDateFullText!: string;
   nurseName!: string;
   details!: NursingDetail[];

@@ -8,30 +8,23 @@ import { emitPaths } from "@/paths";
 import { useSearchDataStore } from "@/stores/search-data.store";
 
 export default function IOSheetBody() {
-  const { handleSearch, isPending, error } = useEmit<IOSheet>({
-    eventName: emitPaths.getIOSheet,
-  });
-  const divRef = useRef<HTMLDivElement>(null);
   const { ioSheet } = useSearchDataStore();
+  const { items, dates, inViewEl, handleSearch, isPending, error } =
+    useEmit<IOSheet>({
+      eventName: emitPaths.getIOSheet,
+      searchState: ioSheet,
+    });
 
-  useEffect(() => {
-    function handleScrollChange(this: HTMLDivElement, e: Event) {
-      console.log("this.scrollTop", this.scrollTop);
-    }
-
-    divRef.current?.addEventListener("scroll", handleScrollChange);
-
-    return () => { };
-  }, [divRef]);
   return (
     <SearchWrapper
-      defaultDateRange={undefined}
+      defaultDateRange={dates}
       onSearch={handleSearch}
       isPending={isPending}
       error={error}
     >
-      <div ref={divRef} className="overflow-auto">
-        <IOSheetTable defaultData={ioSheet?.data} />
+      <div className="overflow-auto">
+        <IOSheetTable data={items} />
+        {inViewEl}
       </div>
     </SearchWrapper>
   );

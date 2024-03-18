@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { NursingRecord } from "@/sockets/models/nursing-record";
 import React from "react";
-import SearchDataHeader from "../search-data-header";
+import { SearchDataBox } from "../search-data-box";
 
 interface Props {
   nursingRecord: NursingRecord;
@@ -18,13 +18,13 @@ export default function NursingRecordBox({ nursingRecord }: Props) {
   ));
 
   return (
-    <div className="border-primary-sm border border-solid shadow-xl">
-      <SearchDataHeader
-        contents={[
-          { title: "작성일자", text: nursingRecord.writeDateFullText },
-          { title: "담당자", text: nursingRecord.nurseName },
-        ]}
-      />
+    <SearchDataBox
+      childrenClassName="p-0"
+      contents={[
+        { title: "작성일자", text: nursingRecord.writeDateFullText },
+        { title: "담당자", text: nursingRecord.nurseName },
+      ]}
+    >
       <div
         className={cn(
           "justify-stretch whitespace-pre-wrap bg-white",
@@ -33,7 +33,7 @@ export default function NursingRecordBox({ nursingRecord }: Props) {
       >
         {detailComponents}
       </div>
-    </div>
+    </SearchDataBox>
   );
 }
 

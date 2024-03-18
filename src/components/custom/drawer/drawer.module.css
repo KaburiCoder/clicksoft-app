@@ -1,0 +1,55 @@
+.child {
+  position: absolute;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.left,
+.right {
+  max-width: 90%;
+  width: fit-content;
+  height: 100%;
+}
+
+.top,
+.bottom {
+  max-height: 90%;
+  height: fit-content;
+  width: 100%;
+}
+
+.left {
+  left: calc(var(--drawer-child-width) * -1);
+}
+
+.right {
+  right: calc(var(--drawer-child-width) * -1);
+}
+
+.bottom {
+  bottom: calc(var(--drawer-child-height) * -1);
+}
+
+.top {
+  top: calc(var(--drawer-child-height) * -1);
+}
+
+.open {
+  opacity: 1;
+}
+
+.open.left {
+  left: 0;
+}
+
+.open.right {
+  right: 0;
+}
+
+.open.top {
+  top: 0;
+}
+
+.open.bottom {
+  bottom: 0;
+}

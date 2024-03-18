@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import styles from "./io-sheet-table.module.scss";
 import { ioSheetTableColumns } from "./io-sheet-column";
 import {
+  Cell,
   Row,
   flexRender,
   getCoreRowModel,
@@ -9,140 +10,46 @@ import {
 } from "@tanstack/react-table";
 import { IOSheet } from "@/sockets/models/io-sheet";
 import { cn } from "@/lib/utils";
-
+import IOSheetColumnHeader from "./io-sheet-column-header";
+import { getCommonPinningStyles } from "./io-sheet-table.util";
+import { ChildrenProps } from "@/lib/props/base-props";
 interface Props {
-  defaultData: IOSheet[] | undefined;
+  data: IOSheet[] | undefined;
 }
-export default function IOSheetTable({ defaultData }: Props) {
-  const [data, setData] = React.useState(() =>
-    defaultData ? [...defaultData] : [],
-  );
+
+export default function IOSheetTable({ data }: Props) {
   const table = useReactTable({
-    data,
+    data: data ?? [],
     columns: ioSheetTableColumns,
     getCoreRowModel: getCoreRowModel(),
-
-    // columnResizeMode: "onEnd",
+    debugTable: true,
+    debugHeaders: true,
+    debugColumns: true,
     defaultColumn: {
       size: 50,
       minSize: 50,
       maxSize: 500,
     },
   });
-  const { setClearIoSheets, pushIoSheets, getSum, getRowTotalSum } =
-    useTotalCalculate();
+  const { getShowTotal, getSum, getRowTotalSum } = useTotalCalculate();
 
   return (
-    <table
-      className={cn(styles.table)}
-      style={{ width: table.getCenterTotalSize() }}
-    >
-      <thead >
-        {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => {
-              const columnRelativeDepth = header.depth - header.column.depth;
-
-              if (header.column.depth === 0 && header.depth > 1) {
-                return null;
-              }
-
-              if (
-                !header.isPlaceholder &&
-                columnRelativeDepth > 1 &&
-                header.id === header.column.id
-              ) {
-                return null;
-              }
-
-              let rowSpan = 1;
-              if (header.isPlaceholder) {
-                const leafs = header.getLeafHeaders();
-                rowSpan = leafs[leafs.length - 1].depth - header.depth;
-              }
-
-              return (
-                <th
-                  key={header.id}
-                  colSpan={header.colSpan}
-                  rowSpan={rowSpan}
-                  className="border-separate"
-                >
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext(),
-                  )}
-                </th>
-              );
-            })}
-          </tr>
-        ))}
+    <table className={cn(styles.table)} style={{ width: table.getTotalSize() }}>
+      <thead>
+        <IOSheetColumnHeader table={table} styles={styles} />
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row, index, array) => {
-          const curData = array[index];
-          const nextData = array?.[index + 1];
-          const isOdd = index % 2 === 0;
-          const showTotal =
-            !nextData ||
-            curData.original.shortDateText !== nextData.original.shortDateText;
+          const { showTotal } = getShowTotal(index, array);
 
-          setClearIoSheets(showTotal);
-          pushIoSheets(curData.original);
           return (
             <Fragment key={row.id}>
-              <tr className={index % 2 === 0 ? "bg-primary/10" : ""}>
-                {row.getVisibleCells().map((cell) => {
-                  const total = getRowTotalSum(
-                    cell.column.id,
-                    cell.row.original,
-                  );
-                  const isIntake = cell.column.id.startsWith("intake");
-
-                  //sssssssss
-                  return (
-                    <td
-                      key={cell.id}
-                      align={cell.column.columnDef.meta?.align ?? "center"}
-                      className={cn(
-                        "border border-primary-sm px-1",
-                        isIntake ? (isOdd ? "bg-slate-50" : "bg-white") : "",
-                      )}
-                    >
-                      {total !== undefined
-                        ? total === 0
-                          ? undefined
-                          : total.toLocaleString()
-                        : flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      {/* {flexRender(cell.column.columnDef.cell, cell.getContext())} */}
-                    </td>
-                  );
-                })}
-              </tr>
+              <BaseRow row={row} getRowTotalSum={getRowTotalSum} />
               {showTotal && (
-                <tr className="bg-primary/30 font-semibold text-rose-500">
-                  {row.getVisibleCells().map((cell, index) => {
-                    const colId = cell.column.id;
-                    const isIntake = colId.startsWith("intake");
-                    const sum = getSum(colId);
-
-                    return (
-                      <td
-                        key={cell.id}
-                        className={cn(
-                          "border border-primary-sm px-1",
-                          isIntake ? "bg-slate-200" : "",
-                        )}
-                        align={cell.column.columnDef.meta?.align ?? "center"}
-                      >
-                        {index === 0 ? "합계" : sum?.toLocaleString()}
-                      </td>
-                    );
-                  })}
-                </tr>
+                <TotalRow
+                  getSum={(colId) => getSum(row, array, colId)}
+                  row={row}
+                />
               )}
             </Fragment>
           );
@@ -152,9 +59,69 @@ export default function IOSheetTable({ defaultData }: Props) {
   );
 }
 
+interface BaseRowProps extends ChildrenProps {
+  row: Row<IOSheet>;
+  getRowTotalSum: (cell: Cell<IOSheet, unknown>) => GetRowTotalSumResult;
+}
+
+function BaseRow({ row, getRowTotalSum }: BaseRowProps) {
+  return (
+    <tr>
+      {row.getVisibleCells().map((cell) => {
+        const { isTotalCell, totalText } = getRowTotalSum(cell) || {};
+
+        return (
+          <CellTd key={cell.id} cell={cell} type="body">
+            {isTotalCell
+              ? totalText
+              : flexRender(cell.column.columnDef.cell, cell.getContext())}
+          </CellTd>
+        );
+      })}
+    </tr>
+  );
+}
+
+interface TotalRowProps extends ChildrenProps {
+  row: Row<IOSheet>;
+  getSum: (columnId: any) => number | undefined;
+}
+
+function TotalRow({ row, getSum }: TotalRowProps) {
+  return (
+    <tr className="font-semibold text-rose-500">
+      {row.getVisibleCells().map((cell, index) => {
+        const colId = cell.column.id;
+        const sum = getSum(colId);
+
+        return (
+          <CellTd key={cell.id} cell={cell} type="sum">
+            {index === 0 ? "합계" : sum?.toLocaleString()}
+          </CellTd>
+        );
+      })}
+    </tr>
+  );
+}
+
+interface CellTdProps extends ChildrenProps {
+  cell: Cell<IOSheet, unknown>;
+  type: "body" | "sum";
+}
+
+function CellTd({ cell, children, type }: CellTdProps) {
+  return (
+    <td
+      align={cell.column.columnDef.meta?.align ?? "center"}
+      className={"border-b border-r border-primary-sm"}
+      style={{ ...getCommonPinningStyles(cell.column, type) }}
+    >
+      {children}
+    </td>
+  );
+}
+
 const useTotalCalculate = () => {
-  let ioSheets: IOSheet[] = [];
-  let isClearIoSheets: boolean = false;
   const [totalCols] = useState([
     "intake.total.cc",
     "intake.total.kcal",
@@ -175,28 +142,28 @@ const useTotalCalculate = () => {
     ...totalCols,
   ]);
 
-  function setClearIoSheets(showTotal: boolean) {
-    if (isClearIoSheets) {
-      ioSheets = [];
-      isClearIoSheets = false;
-    }
+  function getShowTotal(index: number, array: Row<IOSheet>[]) {
+    const curData = array[index];
+    const nextData = array?.[index + 1];
+    const showTotal =
+      !nextData ||
+      curData.original.shortDateText !== nextData.original.shortDateText;
 
-    if (showTotal) {
-      isClearIoSheets = true;
-    }
+    return {
+      showTotal,
+    };
   }
 
-  function pushIoSheets(ioSheet: IOSheet) {
-    ioSheets.push(ioSheet);
-  }
-
-  function getSum(colId: string) {
-    if (!sumCols.includes(colId)) return undefined;
-    const cols = colId.split(".");
+  function getSum(row: Row<IOSheet>, array: Row<IOSheet>[], columnId: string) {
+    const filteredData = array.filter(
+      (data) => data.original.shortDateText === row.original.shortDateText,
+    );
+    if (!sumCols.includes(columnId)) return undefined;
+    const cols = columnId.split(".");
     if (!cols) return;
 
-    const sum = ioSheets.reduce((sum, acc) => {
-      const value = getValue(acc, cols);
+    const sum = filteredData.reduce((sum, acc) => {
+      const value = getValue(acc.original, cols);
       const numValue = parseFloat(value);
       return sum + (isNaN(numValue) ? 0 : numValue);
     }, 0);
@@ -204,12 +171,20 @@ const useTotalCalculate = () => {
     return sum === 0 ? undefined : sum;
   }
 
-  function getRowTotalSum(colId: string, ioSheet: IOSheet) {
-    if (!totalCols.includes(colId)) return undefined;
+  function getRowTotalSum(cell: Cell<IOSheet, unknown>): GetRowTotalSumResult {
+    const colId = cell.column.id;
+    if (!totalCols.includes(colId)) return { isTotalCell: false };
     const cols = colId.split(".");
-    if (!cols) return;
+    if (!cols) return { isTotalCell: false };
 
-    return getValue(ioSheet, cols) as number;
+    const total = getValue(cell.row.original, cols) as number;
+    const isTotalCell = total !== undefined;
+    const totalText = total === 0 ? undefined : total?.toLocaleString();
+
+    return {
+      isTotalCell,
+      totalText,
+    };
   }
 
   function getValue(obj: { [key: string]: any }, keys: string[]): any {
@@ -227,9 +202,13 @@ const useTotalCalculate = () => {
   }
 
   return {
-    setClearIoSheets,
-    pushIoSheets,
+    getShowTotal,
     getSum,
     getRowTotalSum,
   };
 };
+
+interface GetRowTotalSumResult {
+  isTotalCell: boolean;
+  totalText?: string;
+}

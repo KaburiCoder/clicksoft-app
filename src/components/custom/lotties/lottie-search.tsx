@@ -6,7 +6,7 @@ import ExPointAnimation from "@/public/lotties/expoint-animation.json";
 export default function LottieSearch() {
   return (
     <Lottie
-      className="m-auto h-full max-h-[40rem] w-full max-w-[40rem]"
+      className="absolute left-1/2 top-1/2 m-auto h-full max-h-[40rem] w-full max-w-[40rem] -translate-x-1/2 -translate-y-1/2 z-10"
       animationData={SearchAnimationJson}
       play
     />

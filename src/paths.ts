@@ -8,6 +8,13 @@ export const paths = {
   nursingRecord: "/nursing-record",
   vitalSign: "/vital-sign",
   ioSheet: "/io-sheet",
+  ptProgress: "/pt-progress",
+  insulin: "/insulin",
+  scan: "/scan",
+  scanViewer: (id: string) => `/scan/${id}`,
+  firstChart: "/first-chart",
+  consult: "/consult",
+  observationChart: "/observation-chart",
 };
 
 export const emitPaths = {
@@ -18,6 +25,14 @@ export const emitPaths = {
   getNursingRecord: "getNursingRecord",
   getVitalSign: "getVitalSign",
   getIOSheet: "getIOSheet",
+  getPtProgress: "getPtProgress",
+  getInsulin: "getInsulin",
+  getScan: "getScan",
+  getScanImage: "getScanImage",
+  getObservationChart: "getObservationChart",
+
+  getFirstChart: "getFirstChart",
+  getConsultation: "getConsultation",
 };
 
 export const imgPaths = {

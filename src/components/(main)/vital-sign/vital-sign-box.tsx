@@ -1,7 +1,7 @@
 import React from "react";
-import SearchDataHeader from "../search-data-header";
 import { cn } from "@/lib/utils";
 import { VitalSign, VitalSignDetail } from "@/sockets/models/vital-sign";
+import { SearchDataBox } from "../search-data-box";
 
 interface Props extends VitalSign { }
 export function VitalSignBox({
@@ -10,25 +10,21 @@ export function VitalSignBox({
   details,
 }: Props) {
   return (
-    <div
-      key={`${writeDateFullText}_${managerName}`}
-      className="flex flex-col border border-primary-sm"
+    <SearchDataBox
+      contents={[
+        { title: "작성일자", text: writeDateFullText },
+        { title: "작성자", text: managerName },
+      ]}
+      childrenClassName="p-0"
     >
-      <SearchDataHeader
-        contents={[
-          { title: "작성일자", text: writeDateFullText },
-          { title: "작성자", text: managerName },
-        ]}
-      />
-
       <div
-        className={`grid-area md2:grid-cols-7 lg2:grid-cols-9 xl2:grid-cols-11 grid grid-cols-4 bg-white md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 2xl:grid-cols-12`}
+        className={`grid-area grid grid-cols-4 bg-white md:grid-cols-6 md2:grid-cols-7 lg:grid-cols-8 lg2:grid-cols-9 xl:grid-cols-10 xl2:grid-cols-11 2xl:grid-cols-12`}
       >
         {details.map((d, i) => (
           <VitalDetail key={d.title} {...d} isOdd={i % 2 !== 0} />
         ))}
       </div>
-    </div>
+    </SearchDataBox>
   );
 }
 

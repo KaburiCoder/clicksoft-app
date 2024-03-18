@@ -11,7 +11,9 @@ import { DataWrapper, DataWrapperProps } from "./data-wrapper";
 import { ChildrenProps } from "@/lib/props/base-props";
 import { SearchErrorFallback } from "../errors/search-error-fallback";
 
-interface Props extends ChildrenProps, SearchControlProps, DataWrapperProps { }
+interface Props extends ChildrenProps, SearchControlProps, DataWrapperProps {
+  inViewEl?: React.ReactNode;
+}
 
 export default function SearchWrapper({
   error,
@@ -19,6 +21,7 @@ export default function SearchWrapper({
   isPending,
   children,
   defaultDateRange,
+  inViewEl,
 }: Props) {
   const dataWrapperRef = useRef<HTMLDivElement>(null);
   const searchControlRef = useRef<SearchControlRef>(null);
@@ -40,7 +43,12 @@ export default function SearchWrapper({
         fallbackRender={SearchErrorFallback}
         onReset={() => searchControlRef?.current?.search()}
       >
-        <DataWrapper ref={dataWrapperRef} isPending={isPending} error={error}>
+        <DataWrapper
+          ref={dataWrapperRef}
+          isPending={isPending}
+          error={error}
+          inView={inViewEl}
+        >
           {children}
         </DataWrapper>
       </ErrorBoundary>

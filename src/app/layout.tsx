@@ -12,9 +12,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
   ...props
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -24,7 +26,12 @@ export default function RootLayout({
           "h-screen overflow-hidden bg-background font-sans antialiased",
         )}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          {modal}
+          <div id="modal-root" />
+          <div id="drawer-root" />
+        </Providers>
       </body>
     </html>
   );

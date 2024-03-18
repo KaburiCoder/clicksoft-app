@@ -1,4 +1,5 @@
 export class IOSheet {
+  id!: string;
   shortDateText!: string;
   shift!: string;
   timeText!: string;

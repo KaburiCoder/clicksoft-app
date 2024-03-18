@@ -113,6 +113,7 @@ input {
   /* 세로 스크롤바 스타일 변경 */
   ::-webkit-scrollbar {
     width: 10px; /* 세로 스크롤바 너비 */
+    height: 10px;
   }
 
   ::-webkit-scrollbar-thumb {
@@ -122,11 +123,6 @@ input {
 
   ::-webkit-scrollbar-track {
     background-color: var(--scroll-background); /* 스크롤바 트랙 색상 */
-  }
-
-  /* 가로 스크롤바 스타일 변경 */
-  ::-webkit-scrollbar-horizontal {
-    height: 10px; /* 가로 스크롤바 높이 */
   }
 
   /* 가로 스크롤바 손잡이 스타일 변경 */
