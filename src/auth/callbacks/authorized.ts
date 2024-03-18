@@ -18,7 +18,11 @@ export const authorized = async ({
   const nextUrl = request.nextUrl;
   const isLoggedIn = !!user;
   const [provider, email] = [(auth?.user as any)?.provider, auth?.user?.email!];
-  const { isAccountPath } = getPaths(request.nextUrl.pathname);
+  const { isAccountPath, isImagePath } = getPaths(request.nextUrl.pathname);
+
+  if (isImagePath) {
+    return true;
+  }
 
   // 로그인이 안되어있으면 로그인 경로로
   if (!isLoggedIn) {
@@ -86,7 +90,9 @@ const getPaths = (pathname: string) => {
     "/change-password",
   ]);
 
+  const isImagePath = isPathnameMatching(pathname, ["/images"]);
+
   const isRegistPath = isPathnameMatching(pathname, [paths.registKey]);
 
-  return { isAccountPath, isRegistPath };
+  return { isAccountPath, isRegistPath, isImagePath };
 };
