@@ -10,6 +10,7 @@ import { X } from "lucide-react";
 interface CustomDrawerProps extends ChildrenClassNameProps {
   anchor?: "left" | "right" | "top" | "bottom";
   zIndex?: number;
+  onOpenChange?: (open: boolean) => void;
 }
 
 export interface CustomDrawerRef {
@@ -20,7 +21,7 @@ export interface CustomDrawerRef {
 const WIDTH_PROP = "--drawer-child-width";
 const HEIGHT_PROP = "--drawer-child-height";
 const CustomDrawer = React.forwardRef<CustomDrawerRef, CustomDrawerProps>(
-  ({ zIndex, className, children, anchor = "left" }, ref) => {
+  ({ zIndex, className, children, onOpenChange, anchor = "left" }, ref) => {
     const [open, setOpen] = useState(false);
     const [closeCalled, setCloseCalled] = useState(false);
     const { isCSR } = useCSR();
@@ -49,6 +50,7 @@ const CustomDrawer = React.forwardRef<CustomDrawerRef, CustomDrawerProps>(
     }
 
     useEffect(() => {
+      onOpenChange?.(open);
       setCloseCalled(!open);
       if (!open) {
         isOffsetReadRef.current = false;

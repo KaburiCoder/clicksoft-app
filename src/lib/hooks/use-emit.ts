@@ -121,29 +121,43 @@ export function useEmit<T>({ eventName, searchState }: Props<T>) {
   async function handleSearch(
     args: SearchArgs | null,
     params: { [key: string]: any } = {},
+    signal: AbortSignal | undefined = undefined,
   ) {
     setIsPending(true);
     setError(undefined);
 
-    const result: AppResult<T> | undefined = await socket?.emitWithAck(
-      eventName,
-      {
+    const resultPromise: Promise<AppResult<T>> | undefined =
+      socket?.emitWithAck(eventName, {
         chartNo: patInfo?.chartNo!,
         startDate: args?.dates.from!,
         endDate: args?.dates.to!,
         ...params,
-      },
-    );
+      });
+
+    const abortPromise = new Promise<AppResult<T>>((resolve) => {
+      signal?.addEventListener("abort", () => {
+        return resolve({ status: "aborted" });
+      });
+    });
+
+    const result = await Promise.race([resultPromise, abortPromise]);
 
     setIsPending(false);
 
     if (dataWrapperRef.current) dataWrapperRef.current.scrollTop = 0;
-    if (result?.status === "success") {
+    if (result?.status === "aborted") {
+      setData(result, args);
+    } else if (result?.status === "success") {
       setData(result, args);
     } else {
       setError(result?.message);
     }
   }
+
+  const clear = () => {
+    setData({} as AppResult<T>, null);
+  };
+
   const { inViewEl, items } = useVirtualized<T>({
     baseItems: searchState?.data,
     count: 20,
@@ -158,5 +172,6 @@ export function useEmit<T>({ eventName, searchState }: Props<T>) {
     dataWrapperRef,
     searchControlRef,
     handleSearch,
+    clear,
   };
 }

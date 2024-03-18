@@ -34,9 +34,9 @@ export default function ScanModalPage({ params: { slug } }: Props) {
         <MainHeader className="border-b" showOnlyBackButton />
         <div className="overflow-auto ">
           <img
-            className="max-w-[99rem] object-left-top"
+            className="max-w-[99rem] object-cover w-full h-auto"
             src={imageUrl}
-            alt="a"
+            alt="스캔 이미지"
           />
         </div>
       </div>

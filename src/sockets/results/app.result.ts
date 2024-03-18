@@ -1,5 +1,5 @@
 export interface AppResult<T> {
   dataList?: T[];
-  status: "success" | "error";
+  status: "success" | "error" | 'aborted';
   message?: string;
 }

@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import CustomDrawer, {
   CustomDrawerRef,
 } from "@/components/custom/drawer/drawer";
+import LottieHourglass from "@/components/custom/lotties/lottie-hourglass";
 
 interface Props {
   scan: Scan;
@@ -20,10 +21,12 @@ export default function ScanImagesDrawer({ scan, trigger }: Props) {
   const drawerRef = useRef<CustomDrawerRef>(null);
   const { scanImage } = useSearchDataStore();
   const wheelRef = useRef<HTMLDivElement>(null);
-  const { items, inViewEl, handleSearch, isPending } = useEmit<ScanImage>({
-    eventName: emitPaths.getScanImage,
-    searchState: scanImage,
-  });
+  const { items, inViewEl, handleSearch, isPending, clear } =
+    useEmit<ScanImage>({
+      eventName: emitPaths.getScanImage,
+      searchState: scanImage,
+    });
+  const abortRef = useRef<AbortController>();
 
   useEffect(() => {
     console.log(items);
@@ -34,8 +37,19 @@ export default function ScanImagesDrawer({ scan, trigger }: Props) {
   ));
 
   function handleOpen(): void {
-    handleSearch(null, { id: scan.id, code: scan.code });
+    abortRef.current = new AbortController();
+    handleSearch(
+      null,
+      { id: scan.id, code: scan.code },
+      abortRef.current.signal,
+    );
     drawerRef.current?.open();
+  }
+
+  function handleOpenChange(open: boolean): void {
+    if (open) return;
+    abortRef.current?.abort();
+    clear();
   }
 
   useEffect(() => {
@@ -62,6 +76,7 @@ export default function ScanImagesDrawer({ scan, trigger }: Props) {
         ref={drawerRef}
         className="flex flex-col bg-white p-4"
         anchor="bottom"
+        onOpenChange={handleOpenChange}
       >
         <h2 className="text-xl font-semibold">기록지 리스트</h2>
         <div className="text-base text-gray-500">
@@ -71,7 +86,7 @@ export default function ScanImagesDrawer({ scan, trigger }: Props) {
           ref={wheelRef}
           className="flex h-52 gap-2 overflow-x-auto whitespace-nowrap p-2"
         >
-          {isPending && <div>조회 중..</div>}
+          {isPending && <LottieHourglass />}
           {components}
           {inViewEl}
         </div>
