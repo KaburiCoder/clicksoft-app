@@ -7,7 +7,7 @@ export interface FetchUserArgs {
 
 export async function fetchGetUser({ provider, email }: FetchUserArgs) {
   const response = await fetch(
-    `http://localhost:3000/api/auth-user?provider=${provider}&email=${email}`,
+    `http://${process.env.NEXT_PUBLIC_DOMAIN}/api/auth-user?provider=${provider}&email=${email}`,
   );
   const user = await response.json();
 
@@ -15,7 +15,7 @@ export async function fetchGetUser({ provider, email }: FetchUserArgs) {
 }
 
 export async function fetchSaveUser(args: FetchUserArgs) {
-  const response = await fetch(`http://localhost:3000/api/auth-user`, {
+  const response = await fetch(`http://${process.env.NEXT_PUBLIC_DOMAIN}/api/auth-user`, {
     method: "POST",
     body: JSON.stringify(args),
   });
