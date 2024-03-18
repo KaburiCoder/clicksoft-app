@@ -35,7 +35,7 @@ export const authorized = async ({
 
   // 로그인이 된 경우 쿠키에 정보를 담아 놓기때문에 userCookie가 있는 경우
   // 로그인이 된 것으로 판단함
-  const userCookie = request.cookies.get(cookieKeys.USER_COOKIE);
+  const userCookie = request.cookies?.get(cookieKeys.USER_COOKIE);
   let isRegisted: boolean = !!userCookie;
 
   // key와 userId가 등록되지 않은 경우 User정보를 조회
