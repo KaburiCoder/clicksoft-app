@@ -55,12 +55,16 @@ export function useEmit<T>({ eventName, searchState }: Props<T>) {
     setState(state);
   }
 
-  function setData(result: AppResult<T>, args: SearchArgs) {
+  function setData(
+    result: AppResult<T>,
+    args: SearchArgs,
+    clear: boolean = false,
+  ) {
     const { dates, page, count, etcParams } = args;
     const stateData = page === 1 ? [] : searchState?.data ?? [];
     const resultData = result.dataList ?? [];
     const state: SearchState<any> = {
-      data: [...stateData, ...resultData],
+      data: clear ? [] : [...stateData, ...resultData],
       dates,
       page,
       count,
@@ -158,7 +162,7 @@ export function useEmit<T>({ eventName, searchState }: Props<T>) {
   }
 
   const clear = () => {
-    setData({} as AppResult<T>, { dates: undefined });
+    setData({} as AppResult<T>, { dates: undefined }, true);
   };
 
   const { inViewEl, inView } = useInViewEx();
