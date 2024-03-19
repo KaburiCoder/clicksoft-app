@@ -15,6 +15,10 @@ import { create } from "zustand";
 export interface SearchState<T> {
   dates: DateRangeType | undefined;
   data: T[] | undefined;
+  page?: number;
+  count?: number;
+  isEndPage?: boolean;
+  etcParams?: { [key: string]: any };
 }
 
 interface State {

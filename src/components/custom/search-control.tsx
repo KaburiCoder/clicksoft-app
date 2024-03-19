@@ -5,7 +5,10 @@ import ButtonL from "../ui/custom/button-l";
 import { DateRangeType } from "@/lib/types/date.types";
 
 export type SearchArgs = {
-  dates: DateRangeType;
+  dates: DateRangeType | undefined;
+  page?: number;
+  count?: number;
+  etcParams?: { [key: string]: any };
 };
 
 export type SearchControlRef = {
@@ -48,7 +51,9 @@ export const SearchControl = React.forwardRef<
         onDateChange={setDateRange}
         defaultDateRange={defaultDateRange}
       />
-      <ButtonL onClick={handleSearch} isLoading={isPending}>조회</ButtonL>
+      <ButtonL onClick={handleSearch} isLoading={isPending}>
+        조회
+      </ButtonL>
     </div>
   );
 });

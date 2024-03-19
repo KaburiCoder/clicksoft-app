@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "react-intersection-observer";
-import { cn } from "../utils";
+import { useInViewEx } from "./use-in-view-ex";
 interface Props<T> {
   baseItems: T[] | undefined;
   count: number;
@@ -9,7 +8,7 @@ interface Props<T> {
 
 export function useVirtualized<T>({ baseItems, count, test }: Props<T>) {
   const [items, setItems] = useState<T[]>();
-  const { inView, ref } = useInView({ threshold: 0 });
+  const { inView, inViewEl, ref } = useInViewEx();
   const isFirstRef = useRef<boolean>(true);
 
   useEffect(() => {
@@ -33,18 +32,6 @@ export function useVirtualized<T>({ baseItems, count, test }: Props<T>) {
       return [...(prevItems ?? []), ...(sliceItems ?? [])];
     });
   }, [inView, baseItems, setItems, count]);
-
-  const inViewEl = (
-    <div
-      ref={ref}
-      className={cn(
-        items?.length === baseItems?.length ? "" : "pt-1",
-        test ? "bg-red-500" : "",
-      )}
-    >
-      {test ? inView.toString() : undefined}
-    </div>
-  );
 
   return {
     ref,

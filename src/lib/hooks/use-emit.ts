@@ -8,10 +8,10 @@ import { NursingRecord } from "@/sockets/models/nursing-record";
 import { ProgressNote } from "@/sockets/models/progress-note";
 import { VitalSign } from "@/sockets/models/vital-sign";
 import { AppResult } from "@/sockets/results/app.result";
-import { useSocket } from "@/sockets/socket.provider";
+import { JoinRoomState, useSocket } from "@/sockets/socket.provider";
 import usePatientStore from "@/stores/patient.store";
 import { SearchState, useSearchDataStore } from "@/stores/search-data.store";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useVirtualized } from "./use-virtualized";
 import { PtProgress } from "@/sockets/models/pt-progress";
 import { Insulin } from "@/sockets/models/insulin";
@@ -20,6 +20,7 @@ import { Scan } from "@/sockets/models/scan";
 import { ScanImage } from "@/sockets/models/scan-image";
 import { Consultation } from "@/sockets/models/consultation";
 import { ObservationChart } from "@/sockets/models/observation-chart";
+import { useInViewEx } from "./use-in-view-ex";
 
 interface Props<T> {
   eventName: string;
@@ -27,7 +28,7 @@ interface Props<T> {
 }
 
 export function useEmit<T>({ eventName, searchState }: Props<T>) {
-  const { socket } = useSocket();
+  const { socket, joinRoomState } = useSocket();
   const searchControlRef = useRef<SearchControlRef>(null);
   const { patInfo } = usePatientStore();
   const [isPending, setIsPending] = useState<boolean>(false);
@@ -47,91 +48,95 @@ export function useEmit<T>({ eventName, searchState }: Props<T>) {
     setObservationChart,
   } = useSearchDataStore();
 
-  function setData(result: AppResult<T>, args: SearchArgs | null) {
+  function setStoreData<T>(
+    setState: (state: SearchState<T>) => void,
+    state: SearchState<T>,
+  ) {
+    setState(state);
+  }
+
+  function setData(result: AppResult<T>, args: SearchArgs) {
+    const { dates, page, count, etcParams } = args;
+    const stateData = page === 1 ? [] : searchState?.data ?? [];
+    const resultData = result.dataList ?? [];
+    const state: SearchState<any> = {
+      data: [...stateData, ...resultData],
+      dates,
+      page,
+      count,
+      isEndPage: resultData.length === 0,
+      etcParams,
+    };
+
     switch (eventName) {
       case emitPaths.getProgressNote:
-        setProgress({
-          data: result.dataList as ProgressNote[],
-          dates: args!.dates,
-        });
+        setStoreData<ProgressNote>(setProgress, state);
+
         break;
       case emitPaths.getNursingRecord:
-        setNursingRecord({
-          data: result.dataList as NursingRecord[],
-          dates: args!.dates,
-        });
+        setStoreData<NursingRecord>(setNursingRecord, state);
+
         break;
       case emitPaths.getVitalSign:
-        setVitalSign({
-          data: result.dataList as VitalSign[],
-          dates: args!.dates,
-        });
+        setStoreData<VitalSign>(setVitalSign, state);
+
         break;
       case emitPaths.getIOSheet:
-        setIOSheet({
-          data: result.dataList as IOSheet[],
-          dates: args!.dates,
-        });
+        setStoreData<IOSheet>(setIOSheet, state);
+
         break;
       case emitPaths.getPtProgress:
-        setPtProgress({
-          data: result.dataList as PtProgress[],
-          dates: args!.dates,
-        });
+        setStoreData<PtProgress>(setPtProgress, state);
+
         break;
       case emitPaths.getInsulin:
-        setInsulin({
-          data: result.dataList as Insulin[],
-          dates: args!.dates,
-        });
+        setStoreData<Insulin>(setInsulin, state);
+
         break;
       case emitPaths.getFirstChart:
-        setFirstChart({
-          data: result.dataList as FirstChart[],
-          dates: args!.dates,
-        });
+        setStoreData<FirstChart>(setFirstChart, state);
+
         break;
       case emitPaths.getScan:
-        setScan({
-          data: result.dataList as Scan[],
-          dates: args!.dates,
-        });
+        setStoreData<Scan>(setScan, state);
+
         break;
       case emitPaths.getScanImage:
-        setScanImage({
-          data: result.dataList as ScanImage[],
-          dates: undefined,
-        });
+        setStoreData<ScanImage>(setScanImage, state);
+
         break;
       case emitPaths.getConsultation:
-        setConsultation({
-          data: result.dataList as Consultation[],
-          dates: undefined,
-        });
+        setStoreData<Consultation>(setConsultation, state);
+
         break;
       case emitPaths.getObservationChart:
-        setObservationChart({
-          data: result.dataList as ObservationChart[],
-          dates: undefined,
-        });
+        setStoreData<ObservationChart>(setObservationChart, state);
+
         break;
     }
   }
 
   async function handleSearch(
     args: SearchArgs | null,
-    params: { [key: string]: any } = {},
     signal: AbortSignal | undefined = undefined,
   ) {
     setIsPending(true);
     setError(undefined);
 
+    if (!args) {
+      args = { dates: undefined };
+    }
+    args.page = args.page ?? 1;
+    args.count = args.count ?? 10;
+
     const resultPromise: Promise<AppResult<T>> | undefined =
       socket?.emitWithAck(eventName, {
         chartNo: patInfo?.chartNo!,
-        startDate: args?.dates.from!,
-        endDate: args?.dates.to!,
-        ...params,
+        startDate: args?.dates?.from!,
+        endDate: args?.dates?.to!,
+        page: args.page,
+        count: args.count,
+        ...args.etcParams,
       });
 
     const abortPromise = new Promise<AppResult<T>>((resolve) => {
@@ -145,9 +150,7 @@ export function useEmit<T>({ eventName, searchState }: Props<T>) {
     setIsPending(false);
 
     if (dataWrapperRef.current) dataWrapperRef.current.scrollTop = 0;
-    if (result?.status === "aborted") {
-      setData(result, args);
-    } else if (result?.status === "success") {
+    if (result?.status === "aborted" || result?.status === "success") {
       setData(result, args);
     } else {
       setError(result?.message);
@@ -155,16 +158,24 @@ export function useEmit<T>({ eventName, searchState }: Props<T>) {
   }
 
   const clear = () => {
-    setData({} as AppResult<T>, null);
+    setData({} as AppResult<T>, { dates: undefined });
   };
 
-  const { inViewEl, items } = useVirtualized<T>({
-    baseItems: searchState?.data,
-    count: 20,
-  });
+  const { inViewEl, inView } = useInViewEx();
+
+  useEffect(() => {
+    if (joinRoomState !== JoinRoomState.JOIN || !inView) return;
+    const { dates, page, isEndPage, etcParams } = searchState || {};
+    if (isEndPage) return;
+    handleSearch({
+      dates: dates,
+      page: (page ?? 0) + 1,
+      etcParams,
+    });
+  }, [inView, joinRoomState]);
 
   return {
-    items,
+    items: searchState?.data,
     inViewEl,
     dates: searchState?.dates,
     error,

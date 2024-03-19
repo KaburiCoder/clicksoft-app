@@ -39,8 +39,7 @@ export default function ScanImagesDrawer({ scan, trigger }: Props) {
   function handleOpen(): void {
     abortRef.current = new AbortController();
     handleSearch(
-      null,
-      { id: scan.id, code: scan.code },
+      { dates: undefined, etcParams: { id: scan.id, code: scan.code } },
       abortRef.current.signal,
     );
     drawerRef.current?.open();
