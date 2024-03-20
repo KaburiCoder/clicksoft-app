@@ -47,13 +47,6 @@ export function useEmit<T>({ eventName, searchState }: Props<T>) {
     setObservationChart,
   } = useSearchDataStore();
 
-  function setStoreData<T>(
-    setState: (state: SearchState<T>) => void,
-    state: SearchState<T>,
-  ) {
-    setState(state);
-  }
-
   function setData(
     result: AppResult<T>,
     args: SearchArgs,
@@ -71,52 +64,21 @@ export function useEmit<T>({ eventName, searchState }: Props<T>) {
       etcParams,
     };
 
-    switch (eventName) {
-      case emitPaths.getProgressNote:
-        setStoreData<ProgressNote>(setProgress, state);
+    const setStateObj: { [key: string]: (state: SearchState<any>) => void } = {
+      [emitPaths.getProgressNote]: setProgress,
+      [emitPaths.getNursingRecord]: setNursingRecord,
+      [emitPaths.getVitalSign]: setVitalSign,
+      [emitPaths.getIOSheet]: setIOSheet,
+      [emitPaths.getPtProgress]: setPtProgress,
+      [emitPaths.getInsulin]: setInsulin,
+      [emitPaths.getFirstChart]: setFirstChart,
+      [emitPaths.getScan]: setScan,
+      [emitPaths.getScanImage]: setScanImage,
+      [emitPaths.getConsultation]: setConsultation,
+      [emitPaths.getObservationChart]: setObservationChart,
+    };
 
-        break;
-      case emitPaths.getNursingRecord:
-        setStoreData<NursingRecord>(setNursingRecord, state);
-
-        break;
-      case emitPaths.getVitalSign:
-        setStoreData<VitalSign>(setVitalSign, state);
-
-        break;
-      case emitPaths.getIOSheet:
-        setStoreData<IOSheet>(setIOSheet, state);
-
-        break;
-      case emitPaths.getPtProgress:
-        setStoreData<PtProgress>(setPtProgress, state);
-
-        break;
-      case emitPaths.getInsulin:
-        setStoreData<Insulin>(setInsulin, state);
-
-        break;
-      case emitPaths.getFirstChart:
-        setStoreData<FirstChart>(setFirstChart, state);
-
-        break;
-      case emitPaths.getScan:
-        setStoreData<Scan>(setScan, state);
-
-        break;
-      case emitPaths.getScanImage:
-        setStoreData<ScanImage>(setScanImage, state);
-
-        break;
-      case emitPaths.getConsultation:
-        setStoreData<Consultation>(setConsultation, state);
-
-        break;
-      case emitPaths.getObservationChart:
-        setStoreData<ObservationChart>(setObservationChart, state);
-
-        break;
-    }
+    setStateObj[eventName](state);
   }
 
   async function handleSearch(

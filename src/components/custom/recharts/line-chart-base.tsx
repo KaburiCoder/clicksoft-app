@@ -26,7 +26,11 @@ export default function LineChartBase({ data, className }: LineChartBaseProps) {
   const obj = GetLineChartObjects(data);
   const checkComponents = obj.map(({ key, color }) => {
     return (
-      <label key={key} className="flex gap-1 items-center text-sm" style={{ color }}>
+      <label
+        key={key}
+        className="flex items-center gap-1 text-sm"
+        style={{ color }}
+      >
         <input
           type="checkbox"
           checked={checkedKeys.includes(key)}
@@ -50,7 +54,7 @@ export default function LineChartBase({ data, className }: LineChartBaseProps) {
     checkedKeys.length === 0 ? obj.map((o) => o.key) : checkedKeys;
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col border-t">
       <div className="flex flex-wrap justify-center gap-2 p-2">
         {checkComponents}
       </div>
@@ -64,6 +68,8 @@ export default function LineChartBase({ data, className }: LineChartBaseProps) {
 
           {resultKeys.map((key) => (
             <Line
+              animationDuration={500}
+              animationEasing="ease-in"
               key={key}
               type="monotone"
               dataKey={key}

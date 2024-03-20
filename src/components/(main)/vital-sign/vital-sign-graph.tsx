@@ -2,7 +2,7 @@ import LineChartBase, {
   GetLineChartObjects,
   GraphDataType,
   LineChartBaseProps,
-} from "@/components/custom/line-chart-base";
+} from "@/components/custom/recharts/line-chart-base";
 import { VitalSign } from "@/sockets/models/vital-sign";
 import React, { useEffect, useState } from "react";
 

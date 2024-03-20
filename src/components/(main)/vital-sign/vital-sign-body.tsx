@@ -7,7 +7,7 @@ import { useSearchDataStore } from "@/stores/search-data.store";
 import { emitPaths } from "@/paths";
 import { VitalSign } from "@/sockets/models/vital-sign";
 import VitalSignGraph, { DataType } from "./vital-sign-graph";
-import { GraphDataType } from "@/components/custom/line-chart-base";
+import { GraphDataType } from "@/components/custom/recharts/line-chart-base";
 
 export default function VitalSignBody() {
   const { vitalSign } = useSearchDataStore();
