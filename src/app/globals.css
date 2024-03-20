@@ -98,6 +98,11 @@ html {
   -moz-box-sizing: border-box;
 }
 
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
 input {
   outline: none;
 }
