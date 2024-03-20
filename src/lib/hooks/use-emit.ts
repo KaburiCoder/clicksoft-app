@@ -12,7 +12,6 @@ import { JoinRoomState, useSocket } from "@/sockets/socket.provider";
 import usePatientStore from "@/stores/patient.store";
 import { SearchState, useSearchDataStore } from "@/stores/search-data.store";
 import { useEffect, useRef, useState } from "react";
-import { useVirtualized } from "./use-virtualized";
 import { PtProgress } from "@/sockets/models/pt-progress";
 import { Insulin } from "@/sockets/models/insulin";
 import { FirstChart } from "@/sockets/models/first-chart";
