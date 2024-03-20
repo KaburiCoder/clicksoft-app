@@ -3,7 +3,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import SocketProvider from "../sockets/socket.provider";
-import useMobileVh from "./hooks/use-mobile-vh";
+import { useMobileVh } from "kbr-react-hooks";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = React.useState(

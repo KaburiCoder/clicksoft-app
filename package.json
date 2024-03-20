@@ -25,6 +25,7 @@
     "date-fns": "^3.3.1",
     "dayjs": "^1.11.10",
     "framer-motion": "^11.0.6",
+    "kbr-react-hooks": "^0.0.1",
     "lucide-react": "^0.330.0",
     "mongoose": "^8.1.2",
     "next": "14.0.4",

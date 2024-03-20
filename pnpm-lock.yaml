@@ -50,6 +50,9 @@ dependencies:
   framer-motion:
     specifier: ^11.0.6
     version: 11.0.6(react-dom@18.2.0)(react@18.2.0)
+  kbr-react-hooks:
+    specifier: ^0.0.1
+    version: 0.0.1
   lucide-react:
     specifier: ^0.330.0
     version: 0.330.0(react@18.2.0)
@@ -2870,6 +2873,13 @@ packages:
   /kareem@2.5.1:
     resolution: {integrity: sha512-7jFxRVm+jD+rkq3kY0iZDJfsO2/t4BBPeEb2qKn2lR/9KhuksYk5hxzfRYWMPV8P/x2d0kHD306YyWLzjjH+uA==}
     engines: {node: '>=12.0.0'}
+    dev: false
+
+  /kbr-react-hooks@0.0.1:
+    resolution: {integrity: sha512-VjpR2RDWfj8syaoelNn7cFYCUtvmlMlwheMpYukQTc6L0bTMIkFyEzMZK/5A28xOd614wlHULAMQcE70vmQK3g==}
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /keyv@4.5.4:
