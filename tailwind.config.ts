@@ -35,6 +35,7 @@ const config = {
         "3xl": "1600px",
       },
       height: {
+        screen: "calc(var(--vh) * 100)",
         header: "3.5rem",
         "header-item": "3rem",
       },
