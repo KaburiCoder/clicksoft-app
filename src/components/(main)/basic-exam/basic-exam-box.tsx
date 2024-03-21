@@ -1,19 +1,22 @@
+import { BasicExam } from "@/sockets/entities/basic-exam";
 import React from "react";
-import { VitalSign } from "@/sockets/entities/vital-sign";
 import { SearchDataBox } from "../search-data-box";
 import { ResultGrid } from "@/components/custom/result-grid/result-grid";
 
-interface Props extends VitalSign { }
-export function VitalSignBox({
+interface Props extends BasicExam { }
+
+export default function BasicExamBox({
+  headers,
   writeDateFullText,
-  managerName,
   details,
 }: Props) {
+  const headerContents = headers?.map((header) => ({ ...header }));
+
   return (
     <SearchDataBox
       contents={[
         { title: "작성일자", text: writeDateFullText },
-        { title: "작성자", text: managerName },
+        ...(headerContents ?? []),
       ]}
       childrenClassName="p-0"
     >

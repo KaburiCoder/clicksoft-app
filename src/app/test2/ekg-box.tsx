@@ -3,7 +3,7 @@ import { ObservationGroup } from "./observation-title";
 import ObGrid from "./ob-grid";
 import { ObGridHead } from "./ob-grid-head";
 import { ObGridBody } from "./ob-grid-body";
-import { ObservationEkg } from "@/sockets/models/observation-chart";
+import { ObservationEkg } from "@/sockets/entities/observation-chart";
 
 interface Props {
   ekg: ObservationEkg | undefined;

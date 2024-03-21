@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { SquareUser } from "lucide-react";
 import { formatYmdToShort } from "@/lib/utils/format-texts";
-import { PatientInfo } from "@/sockets/models/patient-info";
+import { PatientInfo } from "@/sockets/entities/patient-info";
 import usePatientStore from "@/stores/patient.store";
 import { useRouter } from "next/navigation";
 import { useSearchDataStore } from "@/stores/search-data.store";

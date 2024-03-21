@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { Insulin, InsulinDetail } from "@/sockets/models/insulin";
+import { Insulin, InsulinDetail } from "@/sockets/entities/insulin";
 import { Timer } from "lucide-react";
 import React from "react";
 import InsulinPartDialog from "./insulin-part-dialog";

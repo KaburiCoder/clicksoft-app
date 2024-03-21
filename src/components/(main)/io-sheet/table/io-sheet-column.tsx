@@ -1,4 +1,4 @@
-import { IOSheet } from "@/sockets/models/io-sheet";
+import { IOSheet } from "@/sockets/entities/io-sheet";
 import { createColumnHelper } from "@tanstack/react-table";
 
 const columnHelper = createColumnHelper<IOSheet>();

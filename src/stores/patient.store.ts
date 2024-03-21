@@ -1,4 +1,4 @@
-import { PatientInfo } from "@/sockets/models/patient-info";
+import { PatientInfo } from "@/sockets/entities/patient-info";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 

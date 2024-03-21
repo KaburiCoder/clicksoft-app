@@ -1,4 +1,4 @@
-import { ProgressNote } from "@/sockets/models/progress-note";
+import { ProgressNote } from "@/sockets/entities/progress-note";
 import React from "react";
 import { SearchDataBox } from "../search-data-box";
 

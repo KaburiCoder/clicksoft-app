@@ -1,7 +1,7 @@
 "use client";
 import { useEmit } from "@/lib/hooks/use-emit";
 import { emitPaths } from "@/paths";
-import { PtProgress } from "@/sockets/models/pt-progress";
+import { PtProgress } from "@/sockets/entities/pt-progress";
 import { useSearchDataStore } from "@/stores/search-data.store";
 import React from "react";
 import SearchWrapper from "../search-wrapper";

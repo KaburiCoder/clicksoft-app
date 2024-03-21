@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { NursingRecord } from "@/sockets/models/nursing-record";
+import { NursingRecord } from "@/sockets/entities/nursing-record";
 import React from "react";
 import { SearchDataBox } from "../search-data-box";
 

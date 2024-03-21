@@ -1,21 +1,28 @@
 import LineChartBase, {
-  GetLineChartObjects,
   GraphDataType,
-  LineChartBaseProps,
 } from "@/components/custom/recharts/line-chart-base";
-import { VitalSign } from "@/sockets/models/vital-sign";
-import React, { useEffect, useState } from "react";
+import { TitleValueDetail } from "@/sockets/models/title-value-detail";
+import React from "react";
 
-interface Props {
-  items: VitalSign[] | undefined;
+interface ItemWithDetails {
+  [key: string]: any;
+  details: TitleValueDetail[];
 }
 
-export default function VitalSignGraph({ items }: Props) {
+interface Props<T extends ItemWithDetails> {
+  xName: string;
+  items: T[] | undefined;
+}
+
+export default function TitleValueGraph<T extends ItemWithDetails>({
+  xName,
+  items,
+}: Props<T>) {
   if (!items || items.length === 0) return <></>;
 
   const data = items
     ?.reduce((acc: GraphDataType[], cur) => {
-      const obj: DataType = { xName: cur.writeDateFullText };
+      const obj: GraphDataType = { xName: cur[xName] as string };
       cur.details.forEach((d) => {
         obj[d.title] = parseFloat(d.value);
       });
@@ -23,13 +30,8 @@ export default function VitalSignGraph({ items }: Props) {
       acc.push(obj);
 
       return acc;
-    }, [] satisfies DataType[])
+    }, [] satisfies GraphDataType[])
     .reverse();
 
   return <LineChartBase data={data} />;
 }
-
-export type DataType = {
-  xName: string;
-  [key: string]: string | number;
-};

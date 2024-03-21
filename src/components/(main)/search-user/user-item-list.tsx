@@ -1,7 +1,7 @@
 import React from "react";
 import UserItem from "./user-item";
 import { UserItemSkeleton } from "./user-item-skeleton";
-import { PatientInfo } from "@/sockets/models/patient-info";
+import { PatientInfo } from "@/sockets/entities/patient-info";
 
 interface Props {
   patientInfos: PatientInfo[] | undefined;

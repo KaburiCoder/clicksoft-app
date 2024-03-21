@@ -4,7 +4,7 @@ import { ObservationGroup } from "./observation-title";
 import { ObGridBody } from "./ob-grid-body";
 import { ObGridHead } from "./ob-grid-head";
 import ObGrid from "./ob-grid";
-import { ObservationInsulin } from "@/sockets/models/observation-chart";
+import { ObservationInsulin } from "@/sockets/entities/observation-chart";
 
 interface Props {
   insulinList: ObservationInsulin[] | undefined;

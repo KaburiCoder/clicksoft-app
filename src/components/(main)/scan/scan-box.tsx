@@ -6,7 +6,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
-import { Scan } from "@/sockets/models/scan";
+import { Scan } from "@/sockets/entities/scan";
 import ScanImagesDrawer from "./scan-images-drawer";
 
 interface Props {

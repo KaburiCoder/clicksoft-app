@@ -4,7 +4,7 @@ import React from "react";
 import SearchWrapper from "../search-wrapper";
 import { useEmit } from "@/lib/hooks/use-emit";
 import { useSearchDataStore } from "@/stores/search-data.store";
-import { Scan } from "@/sockets/models/scan";
+import { Scan } from "@/sockets/entities/scan";
 import ScanBox from "./scan-box";
 
 export default function ScanBody() {

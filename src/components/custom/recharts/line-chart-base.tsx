@@ -82,7 +82,7 @@ export default function LineChartBase({ data, className }: LineChartBaseProps) {
   );
 }
 
-export function GetLineChartObjects(data: GraphDataType[]) {
+function GetLineChartObjects(data: GraphDataType[]) {
   const keySet = data?.reduce((acc: Set<string>, cur) => {
     const keys = Object.keys(cur);
     keys.forEach((key) => {

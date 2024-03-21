@@ -1,15 +1,16 @@
 import { DateRangeType } from "@/lib/types/date.types";
-import { Consultation } from "@/sockets/models/consultation";
-import { FirstChart } from "@/sockets/models/first-chart";
-import { Insulin as Insulin } from "@/sockets/models/insulin";
-import { IOSheet, IntakeInfo, OutputsInfo } from "@/sockets/models/io-sheet";
-import { NursingRecord } from "@/sockets/models/nursing-record";
-import { ObservationChart } from "@/sockets/models/observation-chart";
-import { ProgressNote } from "@/sockets/models/progress-note";
-import { PtProgress } from "@/sockets/models/pt-progress";
-import { Scan } from "@/sockets/models/scan";
-import { ScanImage } from "@/sockets/models/scan-image";
-import { VitalSign } from "@/sockets/models/vital-sign";
+import { BasicExam } from "@/sockets/entities/basic-exam";
+import { Consultation } from "@/sockets/entities/consultation";
+import { FirstChart } from "@/sockets/entities/first-chart";
+import { Insulin as Insulin } from "@/sockets/entities/insulin";
+import { IOSheet, IntakeInfo, OutputsInfo } from "@/sockets/entities/io-sheet";
+import { NursingRecord } from "@/sockets/entities/nursing-record";
+import { ObservationChart } from "@/sockets/entities/observation-chart";
+import { ProgressNote } from "@/sockets/entities/progress-note";
+import { PtProgress } from "@/sockets/entities/pt-progress";
+import { Scan } from "@/sockets/entities/scan";
+import { ScanImage } from "@/sockets/entities/scan-image";
+import { VitalSign } from "@/sockets/entities/vital-sign";
 import { create } from "zustand";
 
 export interface SearchState<T> {
@@ -33,6 +34,7 @@ interface State {
   scanImage?: SearchState<ScanImage>;
   consultation?: SearchState<Consultation>;
   observationChart?: SearchState<ObservationChart>;
+  basicExam?: SearchState<BasicExam>;
 }
 
 interface Actions {
@@ -47,6 +49,7 @@ interface Actions {
   setScanImage: (state: SearchState<ScanImage>) => void;
   setConsultation: (state: SearchState<Consultation>) => void;
   setObservationChart: (state: SearchState<ObservationChart>) => void;
+  setBasicExam: (state: SearchState<BasicExam>) => void;
   clearAll: () => void;
 }
 
@@ -62,6 +65,7 @@ const inititalState: State = {
   scanImage: undefined,
   consultation: undefined,
   observationChart: undefined,
+  basicExam: undefined,
 };
 
 export const useSearchDataStore = create<State & Actions>((set) => ({
@@ -84,5 +88,6 @@ export const useSearchDataStore = create<State & Actions>((set) => ({
   setScanImage: (scanImage) => set({ scanImage }),
   setConsultation: (consultation) => set({ consultation }),
   setObservationChart: (observationChart) => set({ observationChart }),
+  setBasicExam: (basicExam) => set({ basicExam }),
   clearAll: () => set(inititalState),
 }));

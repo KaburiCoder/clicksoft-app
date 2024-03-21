@@ -7,7 +7,7 @@ import { Weib } from "@/sockets/dtos/get-patient-info.dto";
 import { useSearchUserHook } from "./use-search-user.hook";
 import { JoinRoomState, useSocket } from "@/sockets/socket.provider";
 import { useVirtualized } from "@/lib/hooks/use-virtualized";
-import { PatientInfo } from "@/sockets/models/patient-info";
+import { PatientInfo } from "@/sockets/entities/patient-info";
 import { SearchInput } from "./search-input";
 
 export default function SearchUser() {

@@ -3,7 +3,7 @@ import { useEmit } from "@/lib/hooks/use-emit";
 import { useSearchDataStore } from "@/stores/search-data.store";
 import React from "react";
 import SearchWrapper from "../search-wrapper";
-import { Consultation } from "@/sockets/models/consultation";
+import { Consultation } from "@/sockets/entities/consultation";
 import { emitPaths } from "@/paths";
 import { SearchDataBox } from "../search-data-box";
 import ConsultationBox from "./consultation-box";

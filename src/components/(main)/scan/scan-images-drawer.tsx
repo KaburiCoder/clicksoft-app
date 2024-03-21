@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useEmit } from "@/lib/hooks/use-emit";
 import { emitPaths, paths } from "@/paths";
 import { useSearchDataStore } from "@/stores/search-data.store";
-import { ScanImage } from "@/sockets/models/scan-image";
-import { Scan } from "@/sockets/models/scan";
+import { ScanImage } from "@/sockets/entities/scan-image";
+import { Scan } from "@/sockets/entities/scan";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import CustomDrawer, {

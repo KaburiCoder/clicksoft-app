@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import SearchWrapper from "../search-wrapper";
 import IOSheetTable from "./table/io-sheet-table";
 import { useEmit } from "@/lib/hooks/use-emit";
-import { IOSheet } from "@/sockets/models/io-sheet";
+import { IOSheet } from "@/sockets/entities/io-sheet";
 import { emitPaths } from "@/paths";
 import { useSearchDataStore } from "@/stores/search-data.store";
 

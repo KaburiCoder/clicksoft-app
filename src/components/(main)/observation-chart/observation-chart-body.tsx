@@ -1,7 +1,7 @@
 "use client";
 import { useEmit } from "@/lib/hooks/use-emit";
 import { emitPaths } from "@/paths";
-import { ObservationChart } from "@/sockets/models/observation-chart";
+import { ObservationChart } from "@/sockets/entities/observation-chart";
 import { useSearchDataStore } from "@/stores/search-data.store";
 import React from "react";
 import SearchWrapper from "../search-wrapper";

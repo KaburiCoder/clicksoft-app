@@ -1,4 +1,4 @@
-import { IOSheet } from "@/sockets/models/io-sheet";
+import { IOSheet } from "@/sockets/entities/io-sheet";
 import { Header, Table } from "@tanstack/react-table";
 import React from "react";
 import { flexRender } from "@tanstack/react-table";

@@ -5,9 +5,8 @@ import { VitalSignBox } from "./vital-sign-box";
 import { useEmit } from "@/lib/hooks/use-emit";
 import { useSearchDataStore } from "@/stores/search-data.store";
 import { emitPaths } from "@/paths";
-import { VitalSign } from "@/sockets/models/vital-sign";
-import VitalSignGraph, { DataType } from "./vital-sign-graph";
-import { GraphDataType } from "@/components/custom/recharts/line-chart-base";
+import { VitalSign } from "@/sockets/entities/vital-sign";
+import TitleValueGraph from "./vital-sign-graph";
 
 export default function VitalSignBody() {
   const { vitalSign } = useSearchDataStore();
@@ -27,7 +26,7 @@ export default function VitalSignBody() {
         isPending={isPending}
         error={error}
         inViewEl={inViewEl}
-        graphEl={<VitalSignGraph items={items} />}
+        graphEl={<TitleValueGraph xName="writeDateFullText" items={items} />}
       >
         <div className="flex flex-col gap-2">{components}</div>
       </SearchWrapper>

@@ -10,7 +10,7 @@ import FoodBox from "./boxes/food-box";
 import RespirationBox from "./boxes/respiration-box";
 import EkgBox from "./boxes/ekg-box";
 import ObjListBox from "./boxes/obj-list-box";
-import { ObservationChart } from "@/sockets/models/observation-chart";
+import { ObservationChart } from "@/sockets/entities/observation-chart";
 
 interface Props {
   data: ObservationChart

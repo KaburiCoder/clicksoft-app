@@ -3,22 +3,11 @@ import {
   SearchControlRef,
 } from "@/components/custom/search-control";
 import { emitPaths } from "@/paths";
-import { IOSheet } from "@/sockets/models/io-sheet";
-import { NursingRecord } from "@/sockets/models/nursing-record";
-import { ProgressNote } from "@/sockets/models/progress-note";
-import { VitalSign } from "@/sockets/models/vital-sign";
 import { AppResult } from "@/sockets/results/app.result";
 import { JoinRoomState, useSocket } from "@/sockets/socket.provider";
 import usePatientStore from "@/stores/patient.store";
 import { SearchState, useSearchDataStore } from "@/stores/search-data.store";
 import { useEffect, useRef, useState } from "react";
-import { PtProgress } from "@/sockets/models/pt-progress";
-import { Insulin } from "@/sockets/models/insulin";
-import { FirstChart } from "@/sockets/models/first-chart";
-import { Scan } from "@/sockets/models/scan";
-import { ScanImage } from "@/sockets/models/scan-image";
-import { Consultation } from "@/sockets/models/consultation";
-import { ObservationChart } from "@/sockets/models/observation-chart";
 import { useInViewEx } from "./use-in-view-ex";
 
 interface Props<T> {
@@ -45,6 +34,7 @@ export function useEmit<T>({ eventName, searchState }: Props<T>) {
     setScanImage,
     setConsultation,
     setObservationChart,
+    setBasicExam,
   } = useSearchDataStore();
 
   function setData(
@@ -76,6 +66,7 @@ export function useEmit<T>({ eventName, searchState }: Props<T>) {
       [emitPaths.getScanImage]: setScanImage,
       [emitPaths.getConsultation]: setConsultation,
       [emitPaths.getObservationChart]: setObservationChart,
+      [emitPaths.getBasicExam]: setBasicExam,
     };
 
     setStateObj[eventName](state);

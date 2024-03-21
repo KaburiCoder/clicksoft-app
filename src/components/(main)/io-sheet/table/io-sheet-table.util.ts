@@ -1,4 +1,4 @@
-import { IOSheet } from "@/sockets/models/io-sheet";
+import { IOSheet } from "@/sockets/entities/io-sheet";
 import { Column } from "@tanstack/react-table";
 import { CSSProperties } from "react";
 

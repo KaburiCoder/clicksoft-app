@@ -2,7 +2,7 @@
 import React from "react";
 import { emitPaths } from "@/paths";
 import ProgressNoteBox from "./progress-note-box";
-import { ProgressNote } from "@/sockets/models/progress-note";
+import { ProgressNote } from "@/sockets/entities/progress-note";
 import { useEmit } from "@/lib/hooks/use-emit";
 import SearchWrapper from "../search-wrapper";
 import { useSearchDataStore } from "@/stores/search-data.store";

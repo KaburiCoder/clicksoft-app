@@ -1,4 +1,4 @@
-import { ContentInfo } from "./content-info";
+import { ContentInfo } from "../models/content-info";
 
 export class Consultation {
   id!: string;

@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import {
   SearchArgs,
+  SearchBarDisplay,
   SearchControl,
   SearchControlProps,
   SearchControlRef,
@@ -14,6 +15,7 @@ import { SearchErrorFallback } from "../errors/search-error-fallback";
 interface Props extends ChildrenProps, SearchControlProps, DataWrapperProps {
   inViewEl?: React.ReactNode;
   graphEl?: React.ReactNode;
+  searchBarDisp?: SearchBarDisplay;
 }
 
 export default function SearchWrapper({
@@ -24,6 +26,7 @@ export default function SearchWrapper({
   defaultDateRange,
   inViewEl,
   graphEl,
+  searchBarDisp,
 }: Props) {
   const dataWrapperRef = useRef<HTMLDivElement>(null);
   const searchControlRef = useRef<SearchControlRef>(null);
@@ -37,12 +40,13 @@ export default function SearchWrapper({
   return (
     <MainWrapper>
       <SearchControl
-        defaultDateRange={defaultDateRange}
         ref={searchControlRef}
+        defaultDateRange={defaultDateRange}
         onSearch={handleSearch}
         isPending={isPending}
         showGraphButton={isGraphExists}
         graphVisible={graphVisible}
+        display={searchBarDisp}
         onGraphVisibleChange={setGraphVisible}
       />
       <ErrorBoundary

@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import NursingRecordBox from "./nursing-record.box";
-import { NursingRecord } from "@/sockets/models/nursing-record";
+import { NursingRecord } from "@/sockets/entities/nursing-record";
 import { useEmit } from "@/lib/hooks/use-emit";
 import { emitPaths } from "@/paths";
 import SearchWrapper from "../search-wrapper";

@@ -8,7 +8,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { IOSheet } from "@/sockets/models/io-sheet";
+import { IOSheet } from "@/sockets/entities/io-sheet";
 import { cn } from "@/lib/utils";
 import IOSheetColumnHeader from "./io-sheet-column-header";
 import { getCommonPinningStyles } from "./io-sheet-table.util";

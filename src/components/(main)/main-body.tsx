@@ -13,6 +13,7 @@ import {
   LottieScan,
   LottieConsult,
   LottieObservation,
+  LottieBasicExam,
 } from "../custom/lotties/lottie-main";
 
 const menuGroups: MenuGroupData[] = [
@@ -85,6 +86,12 @@ const menuGroups: MenuGroupData[] = [
         description: "기록지 스캔",
         lottie: LottieScan,
         href: paths.scan,
+      },
+      {
+        title: "기초검사",
+        description: "기초검사",
+        lottie: LottieBasicExam,
+        href: paths.basicExam,
       },
     ],
   },

@@ -1,7 +1,7 @@
 "use client";
 import { useEmit } from "@/lib/hooks/use-emit";
 import { emitPaths } from "@/paths";
-import { Insulin } from "@/sockets/models/insulin";
+import { Insulin } from "@/sockets/entities/insulin";
 import { useSearchDataStore } from "@/stores/search-data.store";
 import React from "react";
 import SearchWrapper from "../search-wrapper";

@@ -3,7 +3,7 @@ import { emitPaths } from "@/paths";
 import { GetPatientInfoDto, Weib } from "@/sockets/dtos/get-patient-info.dto";
 import { useSocket } from "@/sockets/socket.provider";
 import { useEffect, useState } from "react";
-import { PatientInfo } from "@/sockets/models/patient-info";
+import { PatientInfo } from "@/sockets/entities/patient-info";
 import { extractNumbersFromString } from "@/lib/utils/format-texts";
 import { AppResult } from "@/sockets/results/app.result";
 

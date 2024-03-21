@@ -10,6 +10,7 @@ import FirstChartAnimation from "@/public/lotties/firstchart-animation.json";
 import ScanAnimation from "@/public/lotties/scan-animation.json";
 import ConsultAnimation from "@/public/lotties/consult-animation.json";
 import ObservationAnimation from "@/public/lotties/observation-animation.json";
+import BasicExamAnimation from "@/public/lotties/basic-exam-animation.json";
 
 export function LottieProgressNote() {
   return (
@@ -109,11 +110,23 @@ export function LottieConsult() {
     />
   );
 }
+
 export function LottieObservation() {
   return (
     <Lottie
       className="absolute bottom-4 right-4 h-16 w-16"
       animationData={ObservationAnimation}
+      play
+      speed={1}
+    />
+  );
+}
+
+export function LottieBasicExam() {
+  return (
+    <Lottie
+      className="absolute bottom-4 right-4 h-16 w-16"
+      animationData={BasicExamAnimation}
       play
       speed={1}
     />

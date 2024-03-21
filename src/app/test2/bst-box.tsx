@@ -3,7 +3,7 @@ import { ObservationGroup } from "./observation-title";
 import ObGrid from "./ob-grid";
 import { ObGridHead } from "./ob-grid-head";
 import { ObGridBody } from "./ob-grid-body";
-import { ObservationBst } from "@/sockets/models/observation-chart";
+import { ObservationBst } from "@/sockets/entities/observation-chart";
 
 interface Props {
   bstList: ObservationBst[] | undefined;

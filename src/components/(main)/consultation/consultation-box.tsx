@@ -1,4 +1,4 @@
-import { Consultation } from "@/sockets/models/consultation";
+import { Consultation } from "@/sockets/entities/consultation";
 import React from "react";
 import { SearchDataBox } from "../search-data-box";
 
