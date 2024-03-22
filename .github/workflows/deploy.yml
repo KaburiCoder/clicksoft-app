@@ -18,4 +18,4 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
-            cd c:\web-release\click-app\click-app & git pull & pnpm install & pnpm deploy:dev
+            cd c:\web-release\click-app\clicksoft-app & git pull & pnpm install & pnpm deploy:dev
