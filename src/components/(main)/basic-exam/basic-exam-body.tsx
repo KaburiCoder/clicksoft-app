@@ -6,7 +6,7 @@ import { useSearchDataStore } from "@/stores/search-data.store";
 import React from "react";
 import SearchWrapper from "../search-wrapper";
 import BasicExamBox from "./basic-exam-box";
-import TitleValueGraph from "../vital-sign/vital-sign-graph";
+import TitleValueGraph from "../../custom/graphs/title-value-graph";
 
 export default function BasicExamBody() {
   const { basicExam } = useSearchDataStore();

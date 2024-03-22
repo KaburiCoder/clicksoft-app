@@ -7,7 +7,7 @@ import { LineChart } from "lucide-react";
 import { Button } from "../ui/button";
 
 export type SearchArgs = {
-  dates: DateRangeType | undefined;
+  dates?: DateRangeType;
   page?: number;
   count?: number;
   etcParams?: { [key: string]: any };

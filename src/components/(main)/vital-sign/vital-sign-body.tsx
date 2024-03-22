@@ -6,7 +6,7 @@ import { useEmit } from "@/lib/hooks/use-emit";
 import { useSearchDataStore } from "@/stores/search-data.store";
 import { emitPaths } from "@/paths";
 import { VitalSign } from "@/sockets/entities/vital-sign";
-import TitleValueGraph from "./vital-sign-graph";
+import TitleValueGraph from "../../custom/graphs/title-value-graph";
 
 export default function VitalSignBody() {
   const { vitalSign } = useSearchDataStore();
