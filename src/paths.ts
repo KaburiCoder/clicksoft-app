@@ -16,6 +16,7 @@ export const paths = {
   consult: "/consult",
   observationChart: "/observation-chart",
   basicExam: "/basic-exam",
+  prescription: "/prescription",
 };
 
 export const emitPaths = {
@@ -33,6 +34,7 @@ export const emitPaths = {
   getObservationChart: "getObservationChart",
   getBasicExam: "getBasicExam",
 
+  getPrescription: "getPrescription",
   getFirstChart: "getFirstChart",
   getConsultation: "getConsultation",
 };

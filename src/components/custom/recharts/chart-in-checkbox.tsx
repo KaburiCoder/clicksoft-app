@@ -25,3 +25,5 @@ export function ChartInCheckBox({
     </label>
   );
 }
+
+

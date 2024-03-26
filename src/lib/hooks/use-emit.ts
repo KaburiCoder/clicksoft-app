@@ -15,9 +15,14 @@ import { DateRangeType } from "../types/date.types";
 interface Props<T> {
   eventName: string;
   searchState: SearchState<T> | undefined;
+  defaultCount?: number;
 }
 
-export function useEmit<T>({ eventName, searchState }: Props<T>) {
+export function useEmit<T>({
+  eventName,
+  searchState,
+  defaultCount = 10,
+}: Props<T>) {
   const { socket, joinRoomState } = useSocket();
   const searchControlRef = useRef<SearchControlRef>(null);
   const { patInfo } = usePatientStore();
@@ -37,6 +42,7 @@ export function useEmit<T>({ eventName, searchState }: Props<T>) {
     setConsultation,
     setObservationChart,
     setBasicExam,
+    setPrescription,
   } = useSearchDataStore();
 
   function setData(
@@ -69,6 +75,7 @@ export function useEmit<T>({ eventName, searchState }: Props<T>) {
       [emitPaths.getConsultation]: setConsultation,
       [emitPaths.getObservationChart]: setObservationChart,
       [emitPaths.getBasicExam]: setBasicExam,
+      [emitPaths.getPrescription]: setPrescription,
     };
 
     setStateObj[eventName](state);
@@ -99,7 +106,7 @@ export function useEmit<T>({ eventName, searchState }: Props<T>) {
     setError(undefined);
 
     args.page = args?.page ?? 1;
-    const count = args?.count ?? 10;
+    const count = args?.count ?? defaultCount;
     const resultPromise: Promise<AppResult<T>> | undefined =
       socket?.emitWithAck(eventName, {
         chartNo: patInfo?.chartNo!,

@@ -3,6 +3,7 @@ import React from "react";
 import { MenuCard } from "../custom/menu-card";
 import { paths } from "@/paths";
 import {
+  LottiePrescription,
   LottieProgressNote,
   LottieNursingRecord,
   LottieVitalSign,
@@ -21,6 +22,12 @@ const menuGroups: MenuGroupData[] = [
     highlightText: "진료기록",
     text: "을 확인하세요.",
     items: [
+      {
+        title: "진료내역",
+        description: "진료내역",
+        lottie: LottiePrescription,
+        href: paths.prescription,
+      },
       {
         title: "초진차트",
         description: "초진기록",

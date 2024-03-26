@@ -1,5 +1,6 @@
 import React from "react";
 import Lottie from "react-lottie-player";
+import PrescriptionAnimation from "@/public/lotties/prescription-animation.json";
 import ProgressNoteAnimation from "@/public/lotties/progressnote-animation.json";
 import NursingRecordAnimation from "@/public/lotties/nursingrecord-animation.json";
 import VitalSignAnimation from "@/public/lotties/vitalsign-animation.json";
@@ -11,6 +12,17 @@ import ScanAnimation from "@/public/lotties/scan-animation.json";
 import ConsultAnimation from "@/public/lotties/consult-animation.json";
 import ObservationAnimation from "@/public/lotties/observation-animation.json";
 import BasicExamAnimation from "@/public/lotties/basic-exam-animation.json";
+
+export function LottiePrescription() {
+  return (
+    <Lottie
+      className="absolute bottom-4 right-4 h-16 w-16"
+      animationData={PrescriptionAnimation}
+      play
+      speed={0.5}
+    />
+  );
+}
 
 export function LottieProgressNote() {
   return (

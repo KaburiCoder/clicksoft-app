@@ -6,6 +6,7 @@ import { Insulin as Insulin } from "@/sockets/entities/insulin";
 import { IOSheet, IntakeInfo, OutputsInfo } from "@/sockets/entities/io-sheet";
 import { NursingRecord } from "@/sockets/entities/nursing-record";
 import { ObservationChart } from "@/sockets/entities/observation-chart";
+import { Prescription } from "@/sockets/entities/prescription";
 import { ProgressNote } from "@/sockets/entities/progress-note";
 import { PtProgress } from "@/sockets/entities/pt-progress";
 import { Scan } from "@/sockets/entities/scan";
@@ -35,6 +36,7 @@ interface State {
   consultation?: SearchState<Consultation>;
   observationChart?: SearchState<ObservationChart>;
   basicExam?: SearchState<BasicExam>;
+  prescription?: SearchState<Prescription>;
 }
 
 interface Actions {
@@ -50,6 +52,7 @@ interface Actions {
   setConsultation: (state: SearchState<Consultation>) => void;
   setObservationChart: (state: SearchState<ObservationChart>) => void;
   setBasicExam: (state: SearchState<BasicExam>) => void;
+  setPrescription: (state: SearchState<Prescription>) => void;
   clearAll: () => void;
 }
 
@@ -66,6 +69,7 @@ const inititalState: State = {
   consultation: undefined,
   observationChart: undefined,
   basicExam: undefined,
+  prescription: undefined,
 };
 
 export const useSearchDataStore = create<State & Actions>((set) => ({
@@ -89,5 +93,6 @@ export const useSearchDataStore = create<State & Actions>((set) => ({
   setConsultation: (consultation) => set({ consultation }),
   setObservationChart: (observationChart) => set({ observationChart }),
   setBasicExam: (basicExam) => set({ basicExam }),
+  setPrescription: (prescription) => set({ prescription }),
   clearAll: () => set(inititalState),
 }));
