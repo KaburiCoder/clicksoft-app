@@ -5,7 +5,8 @@ import { useSearchDataStore } from "@/stores/search-data.store";
 import React from "react";
 import SearchWrapper from "../search-wrapper";
 import { Prescription } from "@/sockets/entities/prescription";
-import PrescriptionTable from "./table/prescription-table";
+import OrderBox from "./boxes/order-box";
+import PrescriptionBox from "./prescription-box";
 
 export default function PrescriptionBody() {
   const { prescription } = useSearchDataStore();
@@ -13,8 +14,11 @@ export default function PrescriptionBody() {
     useEmit<Prescription>({
       eventName: emitPaths.getPrescription,
       searchState: prescription,
-      defaultCount: 50,
     });
+
+  const components = items?.map((p) => (
+    <PrescriptionBox key={p.id} prescription={p} />
+  ));
 
   return (
     <SearchWrapper
@@ -23,8 +27,8 @@ export default function PrescriptionBody() {
       isPending={isPending}
       error={error}
     >
-      <div className="overflow-auto">
-        <PrescriptionTable data={items} />
+      <div className="flex flex-col gap-4">
+        {components}
         {inViewEl}
       </div>
     </SearchWrapper>

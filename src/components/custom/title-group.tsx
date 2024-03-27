@@ -6,7 +6,7 @@ interface Props extends ChildrenClassNameProps {
   title: string;
 }
 
-export function ObservationGroup({ title, children, className }: Props) {
+export function TitleGroup({ title, children, className }: Props) {
   return (
     <div className={cn("flex flex-col", className)}>
       <div className="flex items-center gap-4 p-2 border-b border-b-blue-200 mb-2 w-fit">

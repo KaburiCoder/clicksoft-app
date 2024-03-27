@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
-import { ObservationGroup } from "./observation-title";
-import { ObGridBody } from "../grids/ob-grid-body";
-import { ObGridHead } from "../grids/ob-grid-head";
-import ObGrid from "../grids/ob-grid";
+import { TitleGroup } from "../../../custom/title-group";
+import { ObGridBody } from "../../../custom/grids/ob-grid-body";
+import { ObGridHead } from "../../../custom/grids/ob-grid-head";
+import ObGrid from "../../../custom/grids/ob-grid";
 import { ObservationVs } from "@/sockets/entities/observation-chart";
 
 interface Props {
@@ -18,7 +18,7 @@ export default function VsBox({ vsList }: Props) {
   if (!isExists) return <></>;
 
   return (
-    <ObservationGroup title="V.S">
+    <TitleGroup title="V.S">
       <ObGrid className="grid-cols-6">
         <ObGridHead className="row-span-2">{"측정\n시간"}</ObGridHead>
         <ObGridHead className="col-span-2">B.P혈압</ObGridHead>
@@ -40,6 +40,6 @@ export default function VsBox({ vsList }: Props) {
             </Fragment>
           ))}
       </ObGrid>
-    </ObservationGroup>
+    </TitleGroup>
   );
 }

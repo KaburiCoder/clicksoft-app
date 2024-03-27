@@ -1,9 +1,9 @@
 "use client";
 import React, { Fragment } from "react";
-import { ObservationGroup } from "./observation-title";
-import { ObGridBody } from "../grids/ob-grid-body";
-import { ObGridHead } from "../grids/ob-grid-head";
-import ObGrid from "../grids/ob-grid";
+import { TitleGroup } from "../../../custom/title-group";
+import { ObGridBody } from "../../../custom/grids/ob-grid-body";
+import { ObGridHead } from "../../../custom/grids/ob-grid-head";
+import ObGrid from "../../../custom/grids/ob-grid";
 import { ObservationInsulin } from "@/sockets/entities/observation-chart";
 
 interface Props {
@@ -13,7 +13,7 @@ export default function InsulinBox({ insulinList }: Props) {
   if (!insulinList) return <></>;
 
   return (
-    <ObservationGroup title="Insulin">
+    <TitleGroup title="Insulin">
       <ObGrid gridType="insulin">
         <ObGridHead>시간</ObGridHead>
         <ObGridHead>명칭</ObGridHead>
@@ -28,6 +28,6 @@ export default function InsulinBox({ insulinList }: Props) {
           </Fragment>
         ))}
       </ObGrid>
-    </ObservationGroup>
+    </TitleGroup>
   );
 }

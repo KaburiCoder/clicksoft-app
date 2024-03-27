@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
-import { ObservationGroup } from "./observation-title";
-import ObGrid from "../grids/ob-grid";
-import { ObGridHead } from "../grids/ob-grid-head";
-import { ObGridBody } from "../grids/ob-grid-body";
+import { TitleGroup } from "../../../custom/title-group";
+import ObGrid from "../../../custom/grids/ob-grid";
+import { ObGridHead } from "../../../custom/grids/ob-grid-head";
+import { ObGridBody } from "../../../custom/grids/ob-grid-body";
 import { ObservationOutput } from "@/sockets/entities/observation-chart";
 
 interface Props {
@@ -13,7 +13,7 @@ export default function OutputBox({ output }: Props) {
   if (!output) return <></>;
 
   return (
-    <ObservationGroup title="Output">
+    <TitleGroup title="Output">
       <ObGrid className="grid-cols-4">
         <ObGridHead></ObGridHead>
         <ObGridHead>D</ObGridHead>
@@ -43,6 +43,6 @@ export default function OutputBox({ output }: Props) {
         <ObGridHead>총배설량</ObGridHead>
         <ObGridBody className="col-span-3">{output?.totalExcretion}</ObGridBody>
       </ObGrid>
-    </ObservationGroup>
+    </TitleGroup>
   );
 }

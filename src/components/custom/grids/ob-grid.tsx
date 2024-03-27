@@ -4,7 +4,7 @@ import styles from "./ob-grid.module.scss";
 import { ChildrenClassNameProps } from "@/lib/props/base-props";
 
 interface Props extends ChildrenClassNameProps {
-  gridType?: "insulin" | "textList";
+  gridType?: "insulin" | "textList" | "rx-order" | "rx-diagnosis";
 }
 
 export default function ObGrid({ children, className, gridType }: Props) {

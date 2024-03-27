@@ -1,7 +1,26 @@
+import { ContentInfo } from "../models/content-info";
+
 export class Prescription {
-  shortDateText!: string;
-  orderCode?: string;
-  orderName!: string;
+  id!: string;
+  headers!: ContentInfo[];
+  diagnosises?: Diagnosis[]
+  orders?: RxOrder[];
+  medicalNotes?: MedicalNote[];
+}
+
+export class MedicalNote {
+  code!: string;
+  name!: string;
+}
+
+export class Diagnosis {
+  code!: string;
+  name!: string;
+}
+
+export class RxOrder {
+  code?: string;
+  name!: string;
 
   /** 일투 */
   dailyDose!: number;

@@ -14,6 +14,7 @@ import { DateRangeType } from "@/lib/types/date.types";
 import { cn } from "@/lib/utils";
 import { Calendar } from "../calendar";
 import { PopoverClose } from "@radix-ui/react-popover";
+import "react-day-picker/dist/style.css";
 
 interface Props {
   onDateChange: (date?: DateRangeType) => void;
@@ -63,7 +64,7 @@ export function DateRangePicker({
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
+        <PopoverContent className="w-auto p-0 max-h-[34rem] overflow-y-auto" align="start">
           <PopoverClose className="mx-auto flex justify-center gap-1 py-1">
             <TermButton setDate={setDate} value={-1} unit="week">
               1주
@@ -84,23 +85,63 @@ export function DateRangePicker({
               10년
             </TermButton>
           </PopoverClose>
-          <Calendar
-            initialFocus
-            mode="range"
-            locale={ko}
-            defaultMonth={date?.from}
-            selected={date}
-            onSelect={setDate}
-            numberOfMonths={2}
-          // components={{ Caption: ({ displayMonth }) => <div>{displayMonth.getFullYear()}</div> }}
-          // components={{ WeekNumber: () => <div>12321312</div> }}
-          />
+
+          <div className="flex flex-col sm:flex-row">
+            <CustomCalendar
+              defaultMonth={date?.from}
+              selected={date?.from}
+              onSelect={(date) =>
+                setDate((prev) => ({ from: date, to: prev?.to }))
+              }
+            />
+            <CustomCalendar
+              defaultMonth={date?.to}
+              selected={date?.to}
+              onSelect={(date) =>
+                setDate((prev) => ({ from: prev?.from, to: date }))
+              }
+            />
+          </div>
         </PopoverContent>
       </Popover>
     </div>
   );
 }
 
+interface CustomCalendarProps {
+  defaultMonth?: Date;
+  selected?: Date;
+  onSelect: (date: Date | undefined) => void;
+}
+function CustomCalendar({
+  selected,
+  defaultMonth,
+  onSelect,
+}: CustomCalendarProps) {
+  return (
+    <Calendar
+      initialFocus
+      captionLayout="dropdown-buttons"
+      classNames={{
+        caption_label:
+          "flex items-center justify-center w-20 text-base font-medium",
+        dropdown: "rdp-dropdown",
+        dropdown_icon: "ml-2",
+        dropdown_year: "rdp-dropdown_year ml-3",
+        caption_dropdowns: "w-full flex flex-row-reverse justify-end",
+      }}
+      fromYear={1995}
+      toYear={dayjs().add(1, "year").year()}
+      locale={ko}
+      mode="single"
+      onSelect={(date) => {
+        if (date) onSelect(date);
+      }}
+      defaultMonth={defaultMonth}
+      selected={selected}
+    />
+  );
+}
 function TermButton({
   value,
   unit,

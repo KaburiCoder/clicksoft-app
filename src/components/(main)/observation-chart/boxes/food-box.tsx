@@ -1,8 +1,8 @@
 import React from "react";
-import { ObservationGroup } from "./observation-title";
-import ObGrid from "../grids/ob-grid";
-import { ObGridHead } from "../grids/ob-grid-head";
-import { ObGridBody } from "../grids/ob-grid-body";
+import { TitleGroup } from "../../../custom/title-group";
+import ObGrid from "../../../custom/grids/ob-grid";
+import { ObGridHead } from "../../../custom/grids/ob-grid-head";
+import { ObGridBody } from "../../../custom/grids/ob-grid-body";
 import { ObservationFood } from "@/sockets/entities/observation-chart";
 
 interface Props {
@@ -12,7 +12,7 @@ export default function FoodBox({ food }: Props) {
   if (!food) return <></>;
 
   return (
-    <ObservationGroup title="식사">
+    <TitleGroup title="식사">
       <ObGrid className="grid-cols-4">
         <ObGridHead></ObGridHead>
         <ObGridHead>Diet</ObGridHead>
@@ -34,6 +34,6 @@ export default function FoodBox({ food }: Props) {
         <ObGridBody>{food?.dinner?.volume}</ObGridBody>
         <ObGridBody>{food?.dinner?.note}</ObGridBody>
       </ObGrid>
-    </ObservationGroup>
+    </TitleGroup>
   );
 }

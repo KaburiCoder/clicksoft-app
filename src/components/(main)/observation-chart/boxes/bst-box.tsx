@@ -1,8 +1,8 @@
 import React from "react";
-import { ObservationGroup } from "./observation-title";
-import ObGrid from "../grids/ob-grid";
-import { ObGridHead } from "../grids/ob-grid-head";
-import { ObGridBody } from "../grids/ob-grid-body";
+import { TitleGroup } from "../../../custom/title-group";
+import ObGrid from "../../../custom/grids/ob-grid";
+import { ObGridHead } from "../../../custom/grids/ob-grid-head";
+import { ObGridBody } from "../../../custom/grids/ob-grid-body";
 import { ObservationBst } from "@/sockets/entities/observation-chart";
 
 interface Props {
@@ -13,7 +13,7 @@ export default function BstBox({ bstList }: Props) {
   if (!bstList) return <></>;
 
   return (
-    <ObservationGroup title="Glucose(BST)">
+    <TitleGroup title="Glucose(BST)">
       <div className="flex flex-wrap gap-2">
         {bstList
           ?.filter((bst) => bst)
@@ -26,6 +26,6 @@ export default function BstBox({ bstList }: Props) {
             </ObGrid>
           ))}
       </div>
-    </ObservationGroup>
+    </TitleGroup>
   );
 }

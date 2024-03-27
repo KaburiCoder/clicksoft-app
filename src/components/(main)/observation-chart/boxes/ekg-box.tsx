@@ -1,8 +1,8 @@
 import React from "react";
-import { ObservationGroup } from "./observation-title";
-import ObGrid from "../grids/ob-grid";
-import { ObGridHead } from "../grids/ob-grid-head";
-import { ObGridBody } from "../grids/ob-grid-body";
+import { TitleGroup } from "../../../custom/title-group";
+import ObGrid from "../../../custom/grids/ob-grid";
+import { ObGridHead } from "../../../custom/grids/ob-grid-head";
+import { ObGridBody } from "../../../custom/grids/ob-grid-body";
 import { ObservationEkg } from "@/sockets/entities/observation-chart";
 
 interface Props {
@@ -12,7 +12,7 @@ export default function EkgBox({ ekg }: Props) {
   if (!ekg) return <></>;
 
   return (
-    <ObservationGroup title="EKG Monitoring">
+    <TitleGroup title="EKG Monitoring">
       <ObGrid className="grid-cols-3">
         <ObGridHead></ObGridHead>
         <ObGridHead>EKG</ObGridHead>
@@ -25,6 +25,6 @@ export default function EkgBox({ ekg }: Props) {
         <ObGridHead>End</ObGridHead>
         <ObGridBody>{ekg?.end}</ObGridBody>
       </ObGrid>
-    </ObservationGroup>
+    </TitleGroup>
   );
 }

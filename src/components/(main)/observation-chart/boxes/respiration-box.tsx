@@ -1,8 +1,8 @@
 import React from "react";
-import { ObservationGroup } from "./observation-title";
-import ObGrid from "../grids/ob-grid";
-import { ObGridHead } from "../grids/ob-grid-head";
-import { ObGridBody } from "../grids/ob-grid-body";
+import { TitleGroup } from "../../../custom/title-group";
+import ObGrid from "../../../custom/grids/ob-grid";
+import { ObGridHead } from "../../../custom/grids/ob-grid-head";
+import { ObGridBody } from "../../../custom/grids/ob-grid-body";
 import { ObservationRespiration } from "@/sockets/entities/observation-chart";
 
 interface Props {
@@ -13,7 +13,7 @@ export default function RespirationBox({ respiration }: Props) {
   if (!respiration) return <></>;
 
   return (
-    <ObservationGroup title="호흡">
+    <TitleGroup title="호흡">
       <ObGrid className="grid-cols-5">
         <ObGridHead className="row-span-2"></ObGridHead>
         <ObGridHead className="row-span-2">{"CPR(CM)\n시간"}</ObGridHead>
@@ -38,6 +38,6 @@ export default function RespirationBox({ respiration }: Props) {
         <ObGridBody>{respiration?.AV?.end}</ObGridBody>
         <ObGridBody>{respiration?.oxygen?.amount.end}</ObGridBody>
       </ObGrid>
-    </ObservationGroup>
+    </TitleGroup>
   );
 }

@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
-import { ObservationGroup } from "./observation-title";
-import ObGrid from "../grids/ob-grid";
-import { ObGridHead } from "../grids/ob-grid-head";
-import { ObGridBody } from "../grids/ob-grid-body";
+import { TitleGroup } from "../../../custom/title-group";
+import ObGrid from "../../../custom/grids/ob-grid";
+import { ObGridHead } from "../../../custom/grids/ob-grid-head";
+import { ObGridBody } from "../../../custom/grids/ob-grid-body";
 
 interface Props {
   title: string;
@@ -11,7 +11,7 @@ interface Props {
 export default function ObjListBox({ title, obj }: Props) {
   if (!obj) return <></>;
   return (
-    <ObservationGroup title={title}>
+    <TitleGroup title={title}>
       <ObGrid gridType="textList">
         {Object.entries(obj).map(([key, value]) => (
           <Fragment key={key}>
@@ -20,6 +20,6 @@ export default function ObjListBox({ title, obj }: Props) {
           </Fragment>
         ))}
       </ObGrid>
-    </ObservationGroup>
+    </TitleGroup>
   );
 }
