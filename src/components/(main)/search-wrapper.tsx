@@ -27,6 +27,7 @@ export default function SearchWrapper({
   inViewEl,
   graphEl,
   searchBarDisp,
+  searchComponents,
 }: Props) {
   const dataWrapperRef = useRef<HTMLDivElement>(null);
   const searchControlRef = useRef<SearchControlRef>(null);
@@ -47,6 +48,7 @@ export default function SearchWrapper({
         showGraphButton={isGraphExists}
         graphVisible={graphVisible}
         display={searchBarDisp}
+        searchComponents={searchComponents}
         onGraphVisibleChange={setGraphVisible}
       />
       <ErrorBoundary

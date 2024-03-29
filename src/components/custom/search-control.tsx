@@ -27,6 +27,7 @@ export interface SearchControlProps {
   showGraphButton?: boolean;
   graphVisible?: boolean;
   display?: SearchBarDisplay;
+  searchComponents?: React.ReactNode;
   onGraphVisibleChange?: (visible: boolean) => void;
 }
 
@@ -42,6 +43,7 @@ export const SearchControl = React.forwardRef<
       onSearch,
       graphVisible,
       display,
+      searchComponents,
       onGraphVisibleChange,
     }: SearchControlProps,
     ref,
@@ -82,6 +84,7 @@ export const SearchControl = React.forwardRef<
             defaultDateRange={defaultDateRange}
           />
         )}
+        {searchComponents}
         <ButtonL onClick={handleSearch} isLoading={isPending}>
           조회
         </ButtonL>
