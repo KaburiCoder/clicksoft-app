@@ -1,5 +1,4 @@
 import { SearchArgs } from "@/components/custom/search-control";
-import { DateRangeType } from "@/lib/types/date.types";
 import { BasicExam } from "@/sockets/entities/basic-exam";
 import { Consultation } from "@/sockets/entities/consultation";
 import { FirstChart } from "@/sockets/entities/first-chart";

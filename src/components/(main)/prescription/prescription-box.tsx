@@ -11,10 +11,11 @@ interface Props {
 export default function PrescriptionBox({ prescription }: Props) {
   return (
     <SearchDataBox
+      className="w-fit"
       contents={prescription.headers}
       childrenClassName="flex flex-col gap-4"
     >
-      <div className="flex h-fit flex-col gap-4 overflow-hidden">
+      <div className="flex h-fit flex-col gap-4 ">
         <DiagnosisBox diagnosises={prescription.diagnosises} />
         <OrderBox orders={prescription.orders} />
         <MedicalNotesBox medicalNotes={prescription.medicalNotes} />

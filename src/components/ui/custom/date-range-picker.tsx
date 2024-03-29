@@ -26,6 +26,7 @@ export function DateRangePicker({
   className,
   onDateChange,
 }: React.HTMLAttributes<HTMLDivElement> & Props) {
+  const popupRef = React.useRef<HTMLDivElement>(null);
   const [date, setDate] = React.useState<DateRangeType | undefined>(
     defaultDateRange || {
       from: new Date(),
@@ -39,7 +40,13 @@ export function DateRangePicker({
 
   return (
     <div className={cn("grid gap-2", className)}>
-      <Popover>
+      <Popover
+        onOpenChange={(open) => {
+          if (popupRef.current) {
+            popupRef.current.scrollTop = 0;
+          }
+        }}
+      >
         <PopoverTrigger asChild>
           <Button
             id="date"
@@ -64,50 +71,80 @@ export function DateRangePicker({
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0 max-h-[34rem] overflow-y-auto" align="start">
-          <PopoverClose className="mx-auto flex justify-center gap-1 py-1">
-            <TermButton setDate={setDate} value={-1} unit="week">
-              1주
-            </TermButton>
-            <TermButton setDate={setDate} value={-1} unit="month">
-              1달
-            </TermButton>
-            <TermButton setDate={setDate} value={-3} unit="month">
-              3달
-            </TermButton>
-            <TermButton setDate={setDate} value={-6} unit="month">
-              6달
-            </TermButton>
-            <TermButton setDate={setDate} value={-1} unit="year">
-              1년
-            </TermButton>
-            <TermButton setDate={setDate} value={-10} unit="year">
-              10년
-            </TermButton>
-          </PopoverClose>
-
-          <div className="flex flex-col sm:flex-row">
-            <CustomCalendar
-              defaultMonth={date?.from}
-              selected={date?.from}
-              onSelect={(date) =>
-                setDate((prev) => ({ from: date, to: prev?.to }))
-              }
-            />
-            <CustomCalendar
-              defaultMonth={date?.to}
-              selected={date?.to}
-              onSelect={(date) =>
-                setDate((prev) => ({ from: prev?.from, to: date }))
-              }
-            />
-          </div>
+        <PopoverContent
+          ref={popupRef}
+          onLoad={() => {
+            console.log(1);
+          }}
+          className="flex max-h-[34rem] w-auto flex-col p-0"
+          align="start"
+        >
+          <DropdownContent date={date} setDate={setDate} />
         </PopoverContent>
       </Popover>
     </div>
   );
 }
 
+interface DropdownContentProps {
+  date: DateRangeType | undefined;
+  setDate: React.Dispatch<React.SetStateAction<DateRangeType | undefined>>;
+}
+
+function DropdownContent({ date, setDate }: DropdownContentProps) {
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  // 스크롤이 하단으로 내려가는 버그현상이 있어서 추가
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (ref.current) {
+        ref.current.scrollTop = 0;
+      }
+    }, 0);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  return (
+    <div ref={ref} className="h-full overflow-y-auto">
+      <PopoverClose className="mx-auto flex justify-center gap-1 py-1">
+        <TermButton setDate={setDate} value={-1} unit="week">
+          1주
+        </TermButton>
+        <TermButton setDate={setDate} value={-1} unit="month">
+          1달
+        </TermButton>
+        <TermButton setDate={setDate} value={-3} unit="month">
+          3달
+        </TermButton>
+        <TermButton setDate={setDate} value={-6} unit="month">
+          6달
+        </TermButton>
+        <TermButton setDate={setDate} value={-1} unit="year">
+          1년
+        </TermButton>
+        <TermButton setDate={setDate} value={-10} unit="year">
+          10년
+        </TermButton>
+      </PopoverClose>
+
+      <div className="flex flex-col sm:flex-row">
+        <CustomCalendar
+          defaultMonth={date?.from}
+          selected={date?.from}
+          onSelect={(date) => setDate((prev) => ({ from: date, to: prev?.to }))}
+        />
+        <CustomCalendar
+          defaultMonth={date?.to}
+          selected={date?.to}
+          onSelect={(date) =>
+            setDate((prev) => ({ from: prev?.from, to: date }))
+          }
+        />
+      </div>
+    </div>
+  );
+}
 interface CustomCalendarProps {
   defaultMonth?: Date;
   selected?: Date;
