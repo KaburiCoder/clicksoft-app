@@ -8,6 +8,7 @@ import Providers from "@/lib/providers";
 export const metadata: Metadata = {
   title: "클릭소프트 웹 앱",
   description: "클릭소프트 웹 앱",
+  appleWebApp: true,
 };
 
 export default function RootLayout({
@@ -20,6 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="mobile-web-app-capable" content="yes" />
+      </head>
       <body
         className={cn(
           natoSansKR.className,
