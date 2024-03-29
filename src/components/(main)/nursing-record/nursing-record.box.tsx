@@ -2,6 +2,8 @@ import { cn } from "@/lib/utils";
 import { NursingRecord } from "@/sockets/entities/nursing-record";
 import React from "react";
 import { SearchDataBox } from "../search-data-box";
+import { useSearchDataStore } from "@/stores/search-data.store";
+import HighlighterSplit from "@/components/custom/highlighter-split";
 
 interface Props {
   nursingRecord: NursingRecord;
@@ -44,6 +46,10 @@ interface ContentProps {
 }
 
 function Content({ title, detail, noBorder }: ContentProps) {
+  const { nursingRecord } = useSearchDataStore();
+
+  console.log(nursingRecord?.searchString);
+
   return (
     <div
       className={cn(
@@ -55,7 +61,13 @@ function Content({ title, detail, noBorder }: ContentProps) {
       <div className=" bg-green-200 p-2 py-1 font-semibold text-slate-700">
         {title}
       </div>
-      <div className="p-2">{detail}</div>
+      <div className="p-2">
+        <HighlighterSplit
+          searchString={nursingRecord?.searchString}
+          textToHighlight={detail}
+        />
+        {/* {detail} */}
+      </div>
     </div>
   );
 }

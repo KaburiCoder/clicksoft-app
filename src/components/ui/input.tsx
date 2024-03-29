@@ -26,7 +26,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {Icon && <Icon className={cn("m-2 text-primary", errorStyles)} />}
           {/* <span>아이콘</span> */}
           <input
-            className="h-full w-full px-3 py-2"
+            className="h-full w-full px-3 py-2 text-base"
+            spellCheck="false"
             style={{ imeMode: "active" }}
             type={type}
             ref={ref}

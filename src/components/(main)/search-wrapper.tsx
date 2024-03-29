@@ -18,17 +18,17 @@ interface Props extends ChildrenProps, SearchControlProps, DataWrapperProps {
   searchBarDisp?: SearchBarDisplay;
 }
 
-export default function SearchWrapper({
-  error,
-  onSearch,
-  isPending,
-  children,
-  defaultDateRange,
-  inViewEl,
-  graphEl,
-  searchBarDisp,
-  searchComponents,
-}: Props) {
+export default function SearchWrapper(props: Props) {
+  const {
+    error,
+    onSearch,
+    isPending,
+    children,
+    inViewEl,
+    graphEl,
+    searchBarDisp,
+  } = props;
+
   const dataWrapperRef = useRef<HTMLDivElement>(null);
   const searchControlRef = useRef<SearchControlRef>(null);
   const isGraphExists = graphEl !== undefined;
@@ -42,13 +42,11 @@ export default function SearchWrapper({
     <MainWrapper>
       <SearchControl
         ref={searchControlRef}
-        defaultDateRange={defaultDateRange}
+        {...props}
         onSearch={handleSearch}
-        isPending={isPending}
         showGraphButton={isGraphExists}
         graphVisible={graphVisible}
         display={searchBarDisp}
-        searchComponents={searchComponents}
         onGraphVisibleChange={setGraphVisible}
       />
       <ErrorBoundary

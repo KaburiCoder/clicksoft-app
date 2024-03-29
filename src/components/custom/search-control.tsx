@@ -1,15 +1,18 @@
 "use client";
-import React, { useImperativeHandle, useState } from "react";
+import React, { useEffect, useImperativeHandle, useState } from "react";
 import { DateRangePicker } from "../ui/custom/date-range-picker";
 import ButtonL from "../ui/custom/button-l";
 import { DateRangeType } from "@/lib/types/date.types";
 import { LineChart } from "lucide-react";
 import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { SearchState } from "@/stores/search-data.store";
 
 export type SearchArgs = {
   dates?: DateRangeType;
   page?: number;
   count?: number;
+  searchString?: string;
   etcParams?: { [key: string]: any };
 };
 
@@ -22,9 +25,11 @@ export type SearchBarDisplay = {
 };
 export interface SearchControlProps {
   onSearch: (args: SearchArgs) => void;
+  defaultState?: SearchState<any>;
   defaultDateRange?: DateRangeType;
   isPending?: boolean;
   showGraphButton?: boolean;
+  searchStringPlaceholder?: string;
   graphVisible?: boolean;
   display?: SearchBarDisplay;
   searchComponents?: React.ReactNode;
@@ -37,6 +42,7 @@ export const SearchControl = React.forwardRef<
 >(
   (
     {
+      defaultState,
       defaultDateRange,
       isPending,
       showGraphButton,
@@ -44,12 +50,16 @@ export const SearchControl = React.forwardRef<
       graphVisible,
       display,
       searchComponents,
+      searchStringPlaceholder,
       onGraphVisibleChange,
     }: SearchControlProps,
     ref,
   ) => {
     const { dateRange: dispDateRange = true } = display || {};
     const [dateRange, setDateRange] = useState<DateRangeType>();
+    const [searchString, setSearchString] = useState(
+      defaultState?.searchString,
+    );
 
     useImperativeHandle(ref, () => ({
       search: handleSearch,
@@ -66,36 +76,48 @@ export const SearchControl = React.forwardRef<
         };
       }
 
-      onSearch({ dates });
+      onSearch({ dates, searchString: searchString || undefined });
     }
 
     function handleGraphVisible(): void {
       onGraphVisibleChange?.(!graphVisible);
     }
 
+    function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+      event.preventDefault();
+      handleSearch();
+    }
+
     return (
-      <div
-        className="flex flex-wrap items-center gap-1 border-y border-primary/30 bg-green-50 px-2 py-1"
-        aria-disabled={isPending}
-      >
-        {dispDateRange && (
-          <DateRangePicker
-            onDateChange={setDateRange}
-            defaultDateRange={defaultDateRange}
-          />
-        )}
-        {searchComponents}
-        <ButtonL onClick={handleSearch} isLoading={isPending}>
-          조회
-        </ButtonL>
-        {showGraphButton && (
-          <Button
-            variant={graphVisible ? "destructive" : "outline"}
-            onClick={handleGraphVisible}
-          >
-            <LineChart />
-          </Button>
-        )}
+      <div aria-disabled={isPending}>
+        <form
+          className="flex flex-wrap items-center gap-1 border-y border-primary/30 bg-green-50 px-2 py-1"
+          onSubmit={handleSubmit}
+        >
+          {dispDateRange && (
+            <DateRangePicker
+              onDateChange={setDateRange}
+              defaultDateRange={defaultDateRange}
+            />
+          )}
+          {searchComponents}
+          {searchStringPlaceholder && (
+            <Input
+              placeholder={searchStringPlaceholder}
+              value={searchString}
+              onChange={(e) => setSearchString(e.target.value)}
+            />
+          )}
+          <ButtonL isLoading={isPending}>조회</ButtonL>
+          {showGraphButton && (
+            <Button
+              variant={graphVisible ? "destructive" : "outline"}
+              onClick={handleGraphVisible}
+            >
+              <LineChart />
+            </Button>
+          )}
+        </form>
       </div>
     );
   },

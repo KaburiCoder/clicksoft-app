@@ -1,3 +1,4 @@
+import { SearchArgs } from "@/components/custom/search-control";
 import { DateRangeType } from "@/lib/types/date.types";
 import { BasicExam } from "@/sockets/entities/basic-exam";
 import { Consultation } from "@/sockets/entities/consultation";
@@ -14,13 +15,9 @@ import { ScanImage } from "@/sockets/entities/scan-image";
 import { VitalSign } from "@/sockets/entities/vital-sign";
 import { create } from "zustand";
 
-export interface SearchState<T> {
-  dates: DateRangeType | undefined;
+export interface SearchState<T> extends SearchArgs {
   data: T[] | undefined;
-  page?: number;
-  count?: number;
   isEndPage?: boolean;
-  etcParams?: { [key: string]: any };
 }
 
 interface State {

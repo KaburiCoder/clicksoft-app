@@ -100,7 +100,7 @@ export default function PrescriptionOptions({
           className="absolute -left-[1px] -top-3 bg-white"
           onChange={handleMainCheckChange}
         >
-          진료내역
+          처방내역
         </MainCheckbox>
         <CstCheckbox
           name="oral"

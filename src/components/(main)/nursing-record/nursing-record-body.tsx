@@ -21,11 +21,13 @@ export default function NursingRecordBody() {
 
   return (
     <SearchWrapper
+      defaultState={nursingRecord}
       defaultDateRange={dates}
       onSearch={handleSearch}
       isPending={isPending}
       error={error}
       inViewEl={inViewEl}
+      searchStringPlaceholder="ex) 낙상 욕창"
     >
       {nursingRecordComponents}
     </SearchWrapper>

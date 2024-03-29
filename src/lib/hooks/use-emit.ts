@@ -50,16 +50,12 @@ export function useEmit<T>({
     args: SearchArgs,
     clear: boolean = false,
   ) {
-    const { dates, page, count, etcParams } = args;
-    const stateData = page === 1 ? [] : searchState?.data ?? [];
+    const stateData = args.page === 1 ? [] : searchState?.data ?? [];
     const resultData = result.dataList ?? [];
     const state: SearchState<any> = {
+      ...args,
       data: clear ? [] : [...stateData, ...resultData],
-      dates,
-      page,
-      count,
       isEndPage: resultData.length === 0,
-      etcParams,
     };
 
     const setStateObj: { [key: string]: (state: SearchState<any>) => void } = {
@@ -114,6 +110,7 @@ export function useEmit<T>({
         endDate: args?.dates?.to,
         page: args.page,
         count,
+        searchString: args.searchString,
         ...args?.etcParams,
       });
 
@@ -145,13 +142,15 @@ export function useEmit<T>({
   // 최초 로드 시에도 조회 시도함
   useEffect(() => {
     if (joinRoomState !== JoinRoomState.JOIN || !inView) return;
-    const { dates, page, isEndPage, etcParams } = searchState || {};
+    const { dates, page, isEndPage, etcParams, searchString } =
+      searchState || {};
     if (isEndPage) return;
 
     handleSearch({
       dates: getDateRange(dates),
       page: (page ?? 0) + 1,
       etcParams,
+      searchString,
     });
   }, [inView, joinRoomState]);
 
