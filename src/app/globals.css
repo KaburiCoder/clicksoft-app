@@ -38,7 +38,7 @@
     --radius: 0.5rem;
 
     --scroll-color: #67c964;
-    --scroll-background: transparent;
+    --scroll-background: #e3eee3;
   }
 
   .dark {
@@ -71,7 +71,7 @@
     --ring: 212.7 26.8% 83.9%;
 
     --scroll-color: #afafaf;
-    --scroll-background: transparent;
+    --scroll-background: #e3eee3;
   }
 }
 

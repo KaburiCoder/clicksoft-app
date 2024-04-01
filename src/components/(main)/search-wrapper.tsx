@@ -33,13 +33,14 @@ export default function SearchWrapper(props: Props) {
   const searchControlRef = useRef<SearchControlRef>(null);
   const isGraphExists = graphEl !== undefined;
   const [graphVisible, setGraphVisible] = useState(false);
+
   function handleSearch(args: SearchArgs): void {
     if (dataWrapperRef.current) dataWrapperRef.current.scrollTop = 0;
     onSearch(args);
   }
 
   return (
-    <MainWrapper>
+    <>
       <SearchControl
         ref={searchControlRef}
         {...props}
@@ -49,20 +50,22 @@ export default function SearchWrapper(props: Props) {
         display={searchBarDisp}
         onGraphVisibleChange={setGraphVisible}
       />
-      <ErrorBoundary
-        fallbackRender={SearchErrorFallback}
-        onReset={() => searchControlRef?.current?.search()}
-      >
-        <DataWrapper
-          ref={dataWrapperRef}
-          isPending={isPending}
-          error={error}
-          inView={inViewEl}
+      <MainWrapper>
+        <ErrorBoundary
+          fallbackRender={SearchErrorFallback}
+          onReset={() => searchControlRef?.current?.search()}
         >
-          {children}
-        </DataWrapper>
-        {graphVisible && graphEl}
-      </ErrorBoundary>
-    </MainWrapper>
+          <DataWrapper
+            ref={dataWrapperRef}
+            isPending={isPending}
+            error={error}
+            inView={inViewEl}
+          >
+            {children}
+          </DataWrapper>
+        </ErrorBoundary>
+      </MainWrapper>
+      {graphVisible && graphEl}
+    </>
   );
 }

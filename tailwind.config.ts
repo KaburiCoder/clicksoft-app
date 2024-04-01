@@ -34,6 +34,9 @@ const config = {
         "2xl": "1536px",
         "3xl": "1600px",
       },
+      spacing: {
+        header: "3.5rem",
+      },
       height: {
         screen: "calc(var(--vh) * 100)",
         header: "3.5rem",

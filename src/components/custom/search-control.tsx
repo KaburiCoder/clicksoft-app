@@ -89,7 +89,7 @@ export const SearchControl = React.forwardRef<
     }
 
     return (
-      <div aria-disabled={isPending}>
+      <div aria-disabled={isPending} className="top-header sticky z-10">
         <form
           className="flex flex-wrap items-center gap-1 border-y border-primary/30 bg-green-50 px-2 py-1"
           onSubmit={handleSubmit}
@@ -111,6 +111,7 @@ export const SearchControl = React.forwardRef<
           <ButtonL isLoading={isPending}>조회</ButtonL>
           {showGraphButton && (
             <Button
+              type="button"
               variant={graphVisible ? "destructive" : "outline"}
               onClick={handleGraphVisible}
             >

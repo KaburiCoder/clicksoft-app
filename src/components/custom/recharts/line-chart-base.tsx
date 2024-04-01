@@ -12,6 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useChartInCheckBox } from "./hooks/use-chart-in-check-box";
+import { cn } from "@/lib/utils";
 
 export type GraphDataType = {
   xName: string;
@@ -28,11 +29,11 @@ export default function LineChartBase({ data, className }: LineChartBaseProps) {
   });
 
   return (
-    <div className="flex flex-1 flex-col border-t">
+    <div className="sticky bottom-0 flex flex-col border-t bg-white">
       <div className="flex flex-wrap justify-center gap-2 p-2">
         {checkComponents}
       </div>
-      <ResponsiveContainer className={className}>
+      <ResponsiveContainer className={className} height={320}>
         <LineChart data={newData} margin={{ right: 20, top: 5, bottom: 5 }}>
           <CartesianGrid strokeDasharray="1 3" />
           <XAxis dataKey="xName" />
