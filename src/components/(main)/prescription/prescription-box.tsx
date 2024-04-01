@@ -11,7 +11,7 @@ interface Props {
 export default function PrescriptionBox({ prescription }: Props) {
   return (
     <SearchDataBox
-      className="w-fit"
+      className="w-full"
       contents={prescription.headers}
       childrenClassName="flex flex-col gap-4"
     >
