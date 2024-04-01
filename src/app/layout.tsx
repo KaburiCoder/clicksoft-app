@@ -13,11 +13,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  modal,
+  // modal,
   ...props
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
+  // modal: React.ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         <Providers>
           {children}
-          {modal}
+          {/* {modal} */}
           <div id="modal-root" />
           <div id="drawer-root" />
         </Providers>
