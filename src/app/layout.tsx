@@ -27,7 +27,7 @@ export default function RootLayout({
       <body
         className={cn(
           natoSansKR.className,
-          "h-screen overflow-hidden bg-background font-sans antialiased",
+          "min-h-screen overflow-auto bg-background font-sans antialiased",
         )}
       >
         <Providers>
