@@ -1,6 +1,6 @@
 import { ChildrenProps } from "@/lib/props/base-props";
 import React, { useRef } from "react";
-import LottieSearch from "../custom/lotties/lottie-search";
+import LottieSearch, { LottieExPoint } from "../custom/lotties/lottie-search";
 import { useInView } from "framer-motion";
 
 export interface DataWrapperProps extends ChildrenProps {
@@ -11,11 +11,12 @@ export interface DataWrapperProps extends ChildrenProps {
 
 const DataWrapper = React.forwardRef<HTMLDivElement, DataWrapperProps>(
   ({ error, isPending, inView, children }: DataWrapperProps, ref) => {
-    if (error) throw new Error(error);
+    if (error) return <ClientConnectError error={error} />;
+
     return (
       <div
         ref={ref}
-        className="flex h-full flex-1 flex-col gap-2 overflow-auto p-2 relative"
+        className="relative flex h-full flex-1 flex-col gap-2 overflow-auto p-2"
       >
         {isPending && <LottieSearch />}
         {children}
@@ -28,3 +29,12 @@ const DataWrapper = React.forwardRef<HTMLDivElement, DataWrapperProps>(
 DataWrapper.displayName = "DataWrapper";
 
 export { DataWrapper };
+
+function ClientConnectError({ error }: { error: string | undefined }) {
+  return (
+    <div className="flex flex-col items-center justify-center p-4 pt-28">
+      <LottieExPoint />
+      <div className="pb-4 text-xl font-bold text-error">{error}</div>
+    </div>
+  );
+}

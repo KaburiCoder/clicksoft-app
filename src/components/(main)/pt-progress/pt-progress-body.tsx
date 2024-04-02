@@ -6,6 +6,7 @@ import { useSearchDataStore } from "@/stores/search-data.store";
 import React from "react";
 import SearchWrapper from "../search-wrapper";
 import { SearchDataBox } from "../search-data-box";
+import HighlighterSplit from "@/components/custom/highlighter-split";
 
 export default function PtProgressBody() {
   const { ptProgress } = useSearchDataStore();
@@ -25,17 +26,22 @@ export default function PtProgressBody() {
         { title: "담당자", text: item.managerName },
       ]}
     >
-      {item.content}
+      <HighlighterSplit
+        searchString={ptProgress?.searchString}
+        textToHighlight={item.content}
+      />
     </SearchDataBox>
   ));
 
   return (
     <SearchWrapper
+      defaultState={ptProgress}
       defaultDateRange={dates}
       onSearch={handleSearch}
       isPending={isPending}
       error={error}
       inViewEl={inViewEl}
+      searchStringPlaceholder="내용 조회"
     >
       {contents}
     </SearchWrapper>

@@ -4,6 +4,7 @@ import "../styles/index";
 import { natoSansKR } from "@/fonts/fonts";
 import { cn } from "@/lib/utils";
 import Providers from "@/lib/providers";
+import { headers } from "next/headers";
 
 export const metadata: Metadata = {
   title: "클릭소프트 웹 앱",
@@ -17,7 +18,6 @@ export default function RootLayout({
   ...props
 }: Readonly<{
   children: React.ReactNode;
-  // modal: React.ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         <Providers>
           {children}
-          {/* {modal} */}
+          <div id="screen-root" />
           <div id="modal-root" />
           <div id="drawer-root" />
         </Providers>

@@ -1,12 +1,14 @@
 import { ProgressNote } from "@/sockets/entities/progress-note";
 import React from "react";
 import { SearchDataBox } from "../search-data-box";
+import HighlighterSplit from "@/components/custom/highlighter-split";
 
 interface Props {
   progressNote: ProgressNote;
+  searchString?: string;
 }
 
-export default function ProgressNoteBox({ progressNote }: Props) {
+export default function ProgressNoteBox({ progressNote, searchString }: Props) {
   const { writer, writeDateFullText, detail, doctorName, typeName } =
     progressNote;
 
@@ -19,7 +21,7 @@ export default function ProgressNoteBox({ progressNote }: Props) {
         { title: "진료의", text: doctorName },
       ]}
     >
-      {detail}
+      <HighlighterSplit searchString={searchString} textToHighlight={detail} />
     </SearchDataBox>
   );
 }

@@ -24,7 +24,6 @@ export function useEmit<T>({
   defaultCount = 10,
 }: Props<T>) {
   const { socket, joinRoomState } = useSocket();
-  const searchControlRef = useRef<SearchControlRef>(null);
   const { patInfo } = usePatientStore();
   const [isPending, setIsPending] = useState<boolean>(false);
   const [error, setError] = useState<string>();
@@ -124,7 +123,11 @@ export function useEmit<T>({
 
     setIsPending(false);
 
-    if (dataWrapperRef.current) dataWrapperRef.current.scrollTop = 0;
+    // 처음 조회 시 스크롤 최상단으로
+    if (args.page === 1) {
+      window.document.documentElement.scrollTop = 0;
+    }
+
     if (result?.status === "aborted" || result?.status === "success") {
       setData(result, args);
     } else {
@@ -161,7 +164,6 @@ export function useEmit<T>({
     error,
     isPending,
     dataWrapperRef,
-    searchControlRef,
     handleSearch,
     clear,
   };

@@ -48,8 +48,6 @@ interface ContentProps {
 function Content({ title, detail, noBorder }: ContentProps) {
   const { nursingRecord } = useSearchDataStore();
 
-  console.log(nursingRecord?.searchString);
-
   return (
     <div
       className={cn(
@@ -66,7 +64,6 @@ function Content({ title, detail, noBorder }: ContentProps) {
           searchString={nursingRecord?.searchString}
           textToHighlight={detail}
         />
-        {/* {detail} */}
       </div>
     </div>
   );

@@ -58,7 +58,7 @@ export const SearchControl = React.forwardRef<
     const { dateRange: dispDateRange = true } = display || {};
     const [dateRange, setDateRange] = useState<DateRangeType>();
     const [searchString, setSearchString] = useState(
-      defaultState?.searchString,
+      defaultState?.searchString ?? "",
     );
 
     useImperativeHandle(ref, () => ({

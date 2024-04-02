@@ -13,6 +13,7 @@ export default function IOSheetBody() {
     useEmit<IOSheet>({
       eventName: emitPaths.getIOSheet,
       searchState: ioSheet,
+      defaultCount: 15,
     });
 
   return (

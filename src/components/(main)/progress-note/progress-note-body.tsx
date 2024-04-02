@@ -16,16 +16,22 @@ export default function ProgressNoteBody() {
     });
 
   const progNoteContents = items?.map((p) => (
-    <ProgressNoteBox key={p.id} progressNote={p} />
+    <ProgressNoteBox
+      key={p.id}
+      progressNote={p}
+      searchString={progress?.searchString}
+    />
   ));
 
   return (
     <SearchWrapper
+      defaultState={progress}
       defaultDateRange={dates}
       onSearch={handleSearch}
       isPending={isPending}
       error={error}
       inViewEl={inViewEl}
+      searchStringPlaceholder="내용 조회"
     >
       {progNoteContents}
     </SearchWrapper>
