@@ -5,15 +5,27 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   errorMessage?: string;
+  wrapperClassName?: string;
   icon?: React.FC<{ className?: string }>;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ label, errorMessage, className, type, icon: Icon, ...props }, ref) => {
+  (
+    {
+      label,
+      errorMessage,
+      className,
+      wrapperClassName,
+      type,
+      icon: Icon,
+      ...props
+    },
+    ref,
+  ) => {
     const errorStyles = cn(errorMessage && "text-rose-500");
 
     return (
-      <label className=" flex flex-col gap-1">
+      <label className={cn("flex flex-col gap-1", wrapperClassName)}>
         {label && <span>{label}</span>}
         <label
           className={cn(

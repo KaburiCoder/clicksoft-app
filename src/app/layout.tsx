@@ -4,7 +4,6 @@ import "../styles/index";
 import { natoSansKR } from "@/fonts/fonts";
 import { cn } from "@/lib/utils";
 import Providers from "@/lib/providers";
-import { headers } from "next/headers";
 
 export const metadata: Metadata = {
   title: "클릭소프트 웹 앱",

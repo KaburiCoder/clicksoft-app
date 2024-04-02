@@ -29,25 +29,29 @@ export default function SearchUser() {
   });
 
   return (
-    <MainWrapper className="gap-2 p-2">
-      <SearchInput onChange={setSearchText} />
-      <RadioButton
-        isPending={isPending}
-        defaultValue={defaultWeib.toString()}
-        items={[
-          { value: Weib.입원.toString(), text: "입원" },
-          // { value: Weib.외래.toString(), text: "외래" },
-          { value: Weib.전체.toString(), text: "전체" },
-        ]}
-        onChange={(weib) => {
-          emitGetPatientInfo(+weib as Weib);
-        }}
-      />
-      <UserItemList
-        patientInfos={items}
-        isPending={isPending}
-        bottomComponents={inViewEl}
-      />
-    </MainWrapper>
+    <>
+      <div className="top-header sticky z-10 space-y-1 bg-white p-2 pb-1 shadow">
+        <SearchInput onChange={setSearchText} />
+        <RadioButton
+          isPending={isPending}
+          defaultValue={defaultWeib.toString()}
+          items={[
+            { value: Weib.입원.toString(), text: "입원" },
+            // { value: Weib.외래.toString(), text: "외래" },
+            { value: Weib.전체.toString(), text: "전체" },
+          ]}
+          onChange={(weib) => {
+            emitGetPatientInfo(+weib as Weib);
+          }}
+        />
+      </div>
+      <MainWrapper className="gap-2 p-2">
+        <UserItemList
+          patientInfos={items}
+          isPending={isPending}
+          bottomComponents={inViewEl}
+        />
+      </MainWrapper>
+    </>
   );
 }
