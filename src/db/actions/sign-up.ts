@@ -2,7 +2,6 @@
 
 import { z } from "zod";
 import connectDB from "../mongodb/mongodb";
-import { User } from "../mongodb/models/user";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { paths } from "@/paths";
@@ -65,6 +64,6 @@ export async function signUpAction(
     return { errors: { form: ["이미 존재하는 계정입니다."] } };
   }
 
-  revalidatePath(paths.root);
-  redirect(paths.root);
+  revalidatePath(paths.login);
+  redirect(paths.login);
 }
