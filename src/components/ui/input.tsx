@@ -5,6 +5,7 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   errorMessage?: string;
+  errorMessages?: string[];
   wrapperClassName?: string;
   icon?: React.FC<{ className?: string }>;
 }
@@ -14,6 +15,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     {
       label,
       errorMessage,
+      errorMessages,
       className,
       wrapperClassName,
       type,
@@ -22,6 +24,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref,
   ) => {
+    errorMessage = errorMessage || errorMessages?.join("\n");
     const errorStyles = cn(errorMessage && "text-rose-500");
 
     return (

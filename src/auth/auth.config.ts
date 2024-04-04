@@ -45,7 +45,8 @@ export const authConfig = {
 
         const sessionObj = session.user as any;
         sessionObj.provider = token.provider;
-        sessionObj.user = userCookie
+        sessionObj.name = userCookie?.name;
+        sessionObj.user = userCookie;
       }
       return session;
     },

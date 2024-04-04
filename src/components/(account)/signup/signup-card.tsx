@@ -3,13 +3,13 @@ import AccountHero from "@/components/(account)/account-hero";
 import ErrorText from "@/components/custom/error-text";
 import ButtonL from "@/components/ui/custom/button-l";
 import { Input } from "@/components/ui/input";
-import { signUpAction } from "@/db/actions/sign-up";
+import { signupAction } from "@/db/actions/sign-up";
 import { Key, Lock, Mail, User } from "lucide-react";
 import React from "react";
 import { useFormState } from "react-dom";
 
 export default function SignupCard() {
-  const [state, action] = useFormState(signUpAction, {});
+  const [state, action] = useFormState(signupAction, {});
 
   return (
     <AccountHero

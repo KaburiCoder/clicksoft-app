@@ -1,41 +1,35 @@
-import { Schema, model, Model, models } from "mongoose";
+import { Schema, model, Model, models, Document } from "mongoose";
 
-export interface IUser {
+export interface UserAttrs {
   provider: string;
   email: string;
   password: string;
   key: string;
   localId: string;
+  name: string;
 }
 
-interface IUserMethods {
-  isRegisted: () => boolean;
+export interface UserModel extends Model<UserDoc> {
+  build(attrs: UserAttrs): UserDoc;
 }
 
-type UserModel = Model<IUser, {}, IUserMethods>;
+interface UserDoc extends Document, UserAttrs { }
 
-const userSchema = new Schema<IUser, UserModel, IUserMethods>({
+const userSchema = new Schema<UserAttrs, UserModel>({
   provider: { type: String, require: true },
   email: { type: String, required: true },
   password: { type: String, required: false },
   key: { type: String, required: false },
   localId: { type: String, required: false },
+  name: { type: String, required: false },
 });
 
-userSchema.methods.isRegisted = function () {
-  return !!this.key && !!this.localId;
+userSchema.statics.build = (attrs: UserAttrs) => {
+  return new User(attrs);
 };
-userSchema.method("isRegisted", function () { });
 
 const User: UserModel =
-  models?.User || model<IUser, UserModel>("User", userSchema);
-
-export interface IUser {
-  provider: string;
-  email: string;
-  password: string;
-  key: string;
-  localId: string;
-}
+  (models?.User as UserModel) ||
+  model<UserAttrs, UserModel>("User", userSchema);
 
 export { User };

@@ -1,4 +1,4 @@
-import { IUser, User } from "@/db/mongodb/models/user";
+import { UserAttrs, User } from "@/db/mongodb/models/user";
 import { APP_URL } from "@/lib/config";
 
 export interface FetchUserArgs {
@@ -12,7 +12,7 @@ export async function fetchGetUser({ provider, email }: FetchUserArgs) {
   );
   const user = await response.json();
 
-  return user as IUser;
+  return user as UserAttrs;
 }
 
 export async function fetchSaveUser(args: FetchUserArgs) {
@@ -22,5 +22,5 @@ export async function fetchSaveUser(args: FetchUserArgs) {
   });
   const mUser = await response.json();
 
-  return mUser as IUser;
+  return mUser as UserAttrs;
 }

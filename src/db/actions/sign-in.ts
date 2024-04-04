@@ -2,18 +2,7 @@
 import { signIn } from "@/auth/auth";
 import { AuthError } from "next-auth";
 
-interface SigninResult {
-  errors?: {
-    // email?: string[];
-    // password?: string[];
-    _form?: string[];
-  };
-}
-
-export async function signInAction(
-  state: SigninResult,
-  formData: FormData,
-): Promise<SigninResult> {
+export async function signInAction(_: any, formData: FormData) {
   try {
     const email = formData.get("email")?.toString();
     const password = formData.get("password")?.toString();

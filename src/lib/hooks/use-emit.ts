@@ -1,7 +1,4 @@
-import {
-  SearchArgs,
-  SearchControlRef,
-} from "@/components/custom/search-control";
+import { SearchArgs } from "@/components/custom/search-control";
 import { emitPaths } from "@/paths";
 import { AppResult } from "@/sockets/results/app.result";
 import { JoinRoomState, useSocket } from "@/sockets/socket.provider";

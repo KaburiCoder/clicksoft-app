@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import SearchUserButton from "./search-user-button";
 import { ChildrenClassNameProps } from "@/lib/props/base-props";
 import NavBackButton from "./nav-back-button";

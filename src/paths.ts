@@ -22,6 +22,8 @@ export const paths = {
 export const emitPaths = {
   joinRoom: "joinRoom",
   leaveRoom: "leaveRoom",
+  certification: "certification",
+
   getPatientInfo: "getPatientInfo",
   getProgressNote: "getProgressNote",
   getNursingRecord: "getNursingRecord",

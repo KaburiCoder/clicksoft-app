@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { paths } from "@/paths";
 import { getUser, saveUser } from "../mongodb/services/user.service";
 import { hash } from "bcrypt";
+import { parseZod } from "@/lib/utils/zod.util";
 
 interface SignupResult {
   errors?: {
@@ -34,16 +35,13 @@ const shcema = z.object({
   //   .min(1, { message: "클라이언트 유저 아이디를 입력하세요." }),
 });
 
-export async function signUpAction(
+export async function signupAction(
   state: SignupResult,
   formData: FormData,
 ): Promise<SignupResult> {
   const provider = "credentials";
-  const result = shcema.safeParse(Object.fromEntries(formData));
-
-  if (!result.success) {
-    return { errors: result.error.flatten().fieldErrors };
-  }
+  const result = parseZod(shcema, formData);
+  if (result.error) return result.error;
 
   await connectDB();
   const { email, password, confirmPassword } = result.data;

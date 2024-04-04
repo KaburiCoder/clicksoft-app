@@ -1,5 +1,5 @@
 "use server";
-import { IUser, User } from "../models/user";
+import { UserAttrs, User } from "../models/user";
 import { GetUserKeyArgs, SaveUserArgs, UpdateUserKeyArgs } from "./user.args";
 import connectDB from "../mongodb";
 
@@ -21,11 +21,10 @@ export async function saveUser({
 
 export async function updateUserKey({ filter, data }: UpdateUserKeyArgs) {
   await connectDB();
+
   const user = await getUser(filter);
-  const { key, localId } = data;
-  const result = await user?.updateOne({
-    key,
-    localId,
+  await user?.updateOne({
+    ...data,
   });
 }
 
@@ -36,10 +35,12 @@ export async function getUser({ provider, email }: GetUserKeyArgs) {
   return user;
 }
 
-export async function getUserOnlyType(args: GetUserKeyArgs): Promise<IUser> {
+export async function getUserOnlyType(
+  args: GetUserKeyArgs,
+): Promise<UserAttrs> {
   const user = await getUser(args);
   return {
     key: user?.key,
     provider: user?.provider,
-  } as IUser;
+  } as UserAttrs;
 }

@@ -5,7 +5,7 @@ import { isPathnameMatching } from "../is-pathname-matching";
 import { getUserCookie } from "@/lib/cookies/user.cookie";
 import { fetchGetUser } from "@/app/api/auth-user/fetch";
 import { cookieKeys } from "@/lib/cookies/cookie.keys";
-import { IUser, User } from "@/db/mongodb/models/user";
+import { UserAttrs, User } from "@/db/mongodb/models/user";
 
 export const authorized = async ({
   request,
@@ -39,7 +39,7 @@ export const authorized = async ({
   let isRegisted: boolean = !!userCookie;
 
   // key와 userId가 등록되지 않은 경우 User정보를 조회
-  let fetchedUser: IUser | undefined = undefined;
+  let fetchedUser: UserAttrs | undefined = undefined;
   if (!isAccountPath && !isRegisted) {
     fetchedUser = await fetchGetUser({
       provider: provider,

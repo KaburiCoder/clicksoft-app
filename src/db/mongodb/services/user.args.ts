@@ -17,4 +17,5 @@ export interface UpdateUserKeyArgs {
 export interface UpdateUserData {
   key: string;
   localId: string;
+  name: string;
 }

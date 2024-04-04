@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, useEffect } from "react";
+import React, { FormEventHandler, Fragment, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { X } from "lucide-react";
@@ -15,6 +15,7 @@ interface Props {
   subTitles?: string[];
   showX?: boolean;
   action?: any;
+  onSubmit?: FormEventHandler<HTMLFormElement>;
 }
 
 export default function AccountHero({
@@ -25,6 +26,7 @@ export default function AccountHero({
   showX,
   type,
   action,
+  onSubmit,
 }: Props) {
   const { back } = useRouter();
   const subTitleComponents = subTitles?.map((st, i) => (
@@ -35,7 +37,7 @@ export default function AccountHero({
 
   return (
     <>
-      <form action={action}>
+      <form action={action} onSubmit={onSubmit}>
         <div className="relative z-10 flex flex-col gap-10 rounded-lg bg-background p-14 shadow">
           {showX && (
             <Button

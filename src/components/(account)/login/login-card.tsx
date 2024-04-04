@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react";
 import { signIn } from "next-auth/react";
 
 export default function LoginCard() {
-  const [state, action] = useFormState(signInAction, {});
+  const [_, action] = useFormState(signInAction, {});
   const { data } = useSession();
   console.table(data);
 
