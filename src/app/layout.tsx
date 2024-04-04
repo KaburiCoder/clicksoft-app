@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import "../styles/index";
 import { natoSansKR } from "@/fonts/fonts";
@@ -35,6 +36,7 @@ export default function RootLayout({
           <div id="modal-root" />
           <div id="drawer-root" />
         </Providers>
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_MEASUREMENT_ID} />
       </body>
     </html>
   );

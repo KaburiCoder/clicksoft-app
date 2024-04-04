@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { PatientInfo } from "@/sockets/entities/patient-info";
 import { extractNumbersFromString } from "@/lib/utils/format-texts";
 import { AppResult } from "@/sockets/results/app.result";
-
 interface Args {
   searchText: string | undefined;
 }
