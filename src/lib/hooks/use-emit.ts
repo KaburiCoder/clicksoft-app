@@ -100,7 +100,7 @@ export function useEmit<T>({
     args.page = args?.page ?? 1;
     const count = args?.count ?? defaultCount;
     const resultPromise: Promise<AppResult<T>> | undefined =
-      socket?.emitWithAck(eventName, {
+      socket?.timeout(30000).emitWithAck(eventName, {
         chartNo: patInfo?.chartNo!,
         startDate: args?.dates?.from,
         endDate: args?.dates?.to,

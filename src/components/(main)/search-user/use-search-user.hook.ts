@@ -22,12 +22,11 @@ export const useSearchUserHook = ({ searchText }: Args) => {
 
     try {
       setIsPending(true);
-      let result: AppResult<PatientInfo> = await socket?.emitWithAck(
-        emitPaths.getPatientInfo,
-        {
+      let result: AppResult<PatientInfo> = await socket
+        ?.timeout(30000)
+        .emitWithAck(emitPaths.getPatientInfo, {
           weib,
-        } satisfies GetPatientInfoDto,
-      );
+        } satisfies GetPatientInfoDto);
 
       if (result.status === "error") {
         throw new Error(result.message);

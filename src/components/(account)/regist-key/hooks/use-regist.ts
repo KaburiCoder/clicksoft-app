@@ -26,7 +26,7 @@ export const useRegist = ({ onSuccess }: UseRegistArgs) => {
   const [pending, setPending] = useState(false);
 
   async function certification(args: CerticiationArgs): Promise<Certification> {
-    return await socket?.emitWithAck(emitPaths.certification, {
+    return await socket?.timeout(5000).emitWithAck(emitPaths.certification, {
       ...args,
     });
   }

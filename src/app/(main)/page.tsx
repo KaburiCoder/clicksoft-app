@@ -4,7 +4,6 @@ import Logo from "@/components/custom/logo";
 import MainBody from "@/components/(main)/main-body";
 
 export default function MainPage() {
-
   return (
     <>
       <MainHeader hideBackButton>

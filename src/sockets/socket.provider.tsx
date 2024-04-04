@@ -49,10 +49,9 @@ export default function SocketProvider({ children }: ChildrenProps) {
         dataType: DataType.WEB,
       };
 
-      const isJoined = await socket?.emitWithAck(
-        emitPaths.joinRoom,
-        joinRoomArgs,
-      );
+      const isJoined = await socket
+        ?.timeout(5000)
+        .emitWithAck(emitPaths.joinRoom, joinRoomArgs);
       setJoinRoomState(isJoined ? JoinRoomState.JOIN : JoinRoomState.ERROR);
     })();
 
