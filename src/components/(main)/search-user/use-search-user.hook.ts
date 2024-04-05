@@ -51,7 +51,9 @@ export const useSearchUserHook = ({ searchText }: Args) => {
     const searchedData = basePatientInfos?.filter(
       (p) =>
         includesText(p.suName, searchText) ||
-        (textNumbers && includesText(p.birthday, textNumbers)) ||
+        (textNumbers &&
+          textNumbers.length > 6 &&
+          includesText(p.birthday, textNumbers)) ||
         (textNumbers && includesText(p.chartNo, textNumbers)),
     );
     setPatientInfos(searchedData);

@@ -9,11 +9,10 @@ import { useFormState } from "react-dom";
 import { signInAction } from "@/db/actions/sign-in";
 import { useSession } from "next-auth/react";
 import { signIn } from "next-auth/react";
+import ErrorText from "@/components/custom/error-text";
 
 export default function LoginCard() {
-  const [_, action] = useFormState(signInAction, {});
-  const { data } = useSession();
-  console.table(data);
+  const [state, action] = useFormState(signInAction, {});
 
   return (
     <AccountHero
@@ -26,13 +25,21 @@ export default function LoginCard() {
       ]}
       content={
         <>
-          <Input icon={Mail} name="email" placeholder="Email" type="email" />
+          <Input
+            icon={Mail}
+            name="email"
+            placeholder="Email"
+            type="email"
+            errorMessages={state.errors?.email}
+          />
           <Input
             icon={Lock}
             name="password"
             placeholder="Password"
             type="password"
+            errorMessages={state.errors?.password}
           />
+          <ErrorText errorMessages={state.errors?._form} />
         </>
       }
       bottomContent={
