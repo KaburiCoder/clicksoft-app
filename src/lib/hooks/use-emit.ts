@@ -26,6 +26,7 @@ export function useEmit<T>({
   const [error, setError] = useState<string>();
   const dataWrapperRef = useRef<HTMLDivElement>(null);
   const {
+    setPatientInfo,
     setProgress,
     setNursingRecord,
     setVitalSign,
@@ -55,6 +56,7 @@ export function useEmit<T>({
     };
 
     const setStateObj: { [key: string]: (state: SearchState<any>) => void } = {
+      [emitPaths.getPatientInfo]: setPatientInfo,
       [emitPaths.getProgressNote]: setProgress,
       [emitPaths.getNursingRecord]: setNursingRecord,
       [emitPaths.getVitalSign]: setVitalSign,

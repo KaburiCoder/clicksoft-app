@@ -20,6 +20,7 @@ export interface SearchState<T> extends SearchArgs {
 }
 
 interface State {
+  patientInfo?: SearchState<any>;
   nursingRecord?: SearchState<NursingRecord>;
   progress?: SearchState<ProgressNote>;
   vitalSign?: SearchState<VitalSign>;
@@ -36,6 +37,7 @@ interface State {
 }
 
 interface Actions {
+  setPatientInfo: (state: SearchState<any>) => void;
   setNursingRecord: (state: SearchState<NursingRecord>) => void;
   setProgress: (state: SearchState<ProgressNote>) => void;
   setVitalSign: (state: SearchState<VitalSign>) => void;
@@ -53,6 +55,7 @@ interface Actions {
 }
 
 const inititalState: State = {
+  patientInfo: undefined,
   progress: undefined,
   nursingRecord: undefined,
   vitalSign: undefined,
@@ -70,6 +73,7 @@ const inititalState: State = {
 
 export const useSearchDataStore = create<State & Actions>((set) => ({
   ...inititalState,
+  setPatientInfo: (patientInfo) => set(() => ({ patientInfo })),
   setNursingRecord: (nursingRecord) => set(() => ({ nursingRecord })),
   setProgress: (progress) => set(() => ({ progress })),
   setVitalSign: (vitalSign) => set(() => ({ vitalSign })),

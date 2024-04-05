@@ -9,28 +9,35 @@ import { JoinRoomState, useSocket } from "@/sockets/socket.provider";
 import { useVirtualized } from "@/lib/hooks/use-virtualized";
 import { PatientInfo } from "@/sockets/entities/patient-info";
 import { SearchInput } from "./search-input";
+import { useEmit } from "@/lib/hooks/use-emit";
+import { useSearchDataStore } from "@/stores/search-data.store";
+import { emitPaths } from "@/paths";
 
 export default function SearchUser() {
   const [searchText, setSearchText] = useState<string>();
-  const { isPending, emitGetPatientInfo, patientInfos } = useSearchUserHook({
-    searchText,
+  const [weib, setWeib] = useState<Weib>(Weib.입원);
+  const { patientInfo } = useSearchDataStore();
+
+  const { items, inViewEl, handleSearch, isPending, error } = useEmit<any>({
+    eventName: emitPaths.getPatientInfo,
+    searchState: patientInfo,
   });
+
   const { joinRoomState } = useSocket();
   const defaultWeib = Weib.입원;
 
   useEffect(() => {
     if (joinRoomState !== JoinRoomState.JOIN) return;
-    emitGetPatientInfo(defaultWeib);
-  }, [joinRoomState]);
-
-  const { inViewEl, items } = useVirtualized<PatientInfo>({
-    baseItems: patientInfos,
-    count: 20,
-  });
+    handleSearch({
+      page: 1,
+      searchString: searchText,
+      etcParams: { weib },
+    });
+  }, [joinRoomState, searchText, weib]);
 
   return (
     <>
-      <div className="top-header sticky z-10 space-y-1 bg-white p-2 pb-1 shadow">
+      <div className="sticky top-header z-10 space-y-1 bg-white p-2 pb-1 shadow">
         <SearchInput onChange={setSearchText} />
         <RadioButton
           isPending={isPending}
@@ -41,7 +48,7 @@ export default function SearchUser() {
             { value: Weib.전체.toString(), text: "전체" },
           ]}
           onChange={(weib) => {
-            emitGetPatientInfo(+weib as Weib);
+            setWeib(+weib);
           }}
         />
       </div>
