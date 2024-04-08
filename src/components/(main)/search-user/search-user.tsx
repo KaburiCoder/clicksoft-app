@@ -31,6 +31,7 @@ export default function SearchUser() {
     handleSearch({
       page: 1,
       searchString: searchText,
+      count: 10,
       etcParams: { weib },
     });
   }, [joinRoomState, searchText, weib]);
