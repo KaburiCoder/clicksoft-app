@@ -13,12 +13,14 @@ interface Props<T> {
   eventName: string;
   searchState: SearchState<T> | undefined;
   defaultCount?: number;
+  doNotFirstLoading?: boolean;
 }
 
 export function useEmit<T>({
   eventName,
   searchState,
   defaultCount = 10,
+  doNotFirstLoading = false,
 }: Props<T>) {
   const { socket, joinRoomState } = useSocket();
   const { patInfo } = usePatientStore();
@@ -101,8 +103,9 @@ export function useEmit<T>({
 
     args.page = args?.page ?? 1;
     const count = args?.count ?? defaultCount;
-    const resultPromise: Promise<AppResult<T>> | undefined =
-      socket?.timeout(30000).emitWithAck(eventName, {
+    const resultPromise: Promise<AppResult<T>> | undefined = socket
+      ?.timeout(30000)
+      .emitWithAck(eventName, {
         chartNo: patInfo?.chartNo!,
         startDate: args?.dates?.from,
         endDate: args?.dates?.to,
@@ -147,14 +150,15 @@ export function useEmit<T>({
     const { dates, page, isEndPage, etcParams, searchString } =
       searchState || {};
     if (isEndPage) return;
-
+    if (doNotFirstLoading && !page) return;
+    
     handleSearch({
       dates: getDateRange(dates),
       page: (page ?? 0) + 1,
       etcParams,
       searchString,
     });
-  }, [inView, joinRoomState]);
+  }, [doNotFirstLoading, inView, joinRoomState]);
 
   return {
     items: searchState?.data,

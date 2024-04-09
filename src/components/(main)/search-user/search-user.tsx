@@ -21,6 +21,7 @@ export default function SearchUser() {
   const { items, inViewEl, handleSearch, isPending, error } = useEmit<any>({
     eventName: emitPaths.getPatientInfo,
     searchState: patientInfo,
+    doNotFirstLoading: true,
   });
 
   const { joinRoomState } = useSocket();
