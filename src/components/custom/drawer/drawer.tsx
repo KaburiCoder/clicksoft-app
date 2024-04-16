@@ -3,7 +3,7 @@ import React, { useEffect, useState, useImperativeHandle, useRef } from "react";
 import styles from "./drawer.module.css";
 import { cn } from "@/lib/utils";
 import { ChildrenClassNameProps } from "@/lib/props/base-props";
-import { useCSR } from "@/lib/hooks/use-CSR";
+import { useCSR } from "kbr-nextjs-shared/hooks";
 import ReactDOM from "react-dom";
 import { X } from "lucide-react";
 

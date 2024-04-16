@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import MainHeader from "@/components/(main)/header/header";
 import IOSheetBody from "@/components/(main)/io-sheet/io-sheet-body";
 import React from "react";
-import { useCSR } from "@/lib/hooks/use-CSR";
+import { useCSR } from "kbr-nextjs-shared/hooks";
 
 export default function IOSheetPage() {
   const { isCSR } = useCSR();

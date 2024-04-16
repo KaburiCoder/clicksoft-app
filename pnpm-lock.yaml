@@ -56,6 +56,9 @@ dependencies:
   framer-motion:
     specifier: ^11.0.6
     version: 11.0.6(react-dom@18.2.0)(react@18.2.0)
+  kbr-nextjs-shared:
+    specifier: ^0.0.1
+    version: 0.0.1(@types/react@18.2.55)(sass@1.72.0)(tailwindcss@3.4.1)
   kbr-react-hooks:
     specifier: ^0.0.1
     version: 0.0.1
@@ -199,6 +202,13 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
+
+  /@babel/runtime@7.24.4:
+    resolution: {integrity: sha512-dkxf7+hn8mFBwKjs9bvBlArzLVxVbS8usaPUDd5p2a9JCL9tB8OaOVN1isD4+Xyk4ns89/xeOmbQvgdK7IIVdA==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.1
+    dev: false
 
   /@cspotcode/source-map-support@0.8.1:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -2946,6 +2956,28 @@ packages:
     engines: {node: '>=12.0.0'}
     dev: false
 
+  /kbr-nextjs-shared@0.0.1(@types/react@18.2.55)(sass@1.72.0)(tailwindcss@3.4.1):
+    resolution: {integrity: sha512-1V8KFyXjoJyWRdkLCuo1mLA+qN13PxjMdPc/mQEoXtF24fAZB2HKb4Y0EuMMsLCJcvpLRa7cf2x44+O4VcTlzg==}
+    dependencies:
+      '@radix-ui/react-slot': 1.0.2(@types/react@18.2.55)(react@18.2.0)
+      class-variance-authority: 0.7.0
+      clsx: 2.1.0
+      lucide-react: 0.368.0(react@18.2.0)
+      next: 14.1.4(react-dom@18.2.0)(react@18.2.0)(sass@1.72.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-intersection-observer: 9.8.2(react-dom@18.2.0)(react@18.2.0)
+      tailwind-merge: 2.2.2
+      tailwindcss-animate: 1.0.7(tailwindcss@3.4.1)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@opentelemetry/api'
+      - '@types/react'
+      - babel-plugin-macros
+      - sass
+      - tailwindcss
+    dev: false
+
   /kbr-react-hooks@0.0.1:
     resolution: {integrity: sha512-VjpR2RDWfj8syaoelNn7cFYCUtvmlMlwheMpYukQTc6L0bTMIkFyEzMZK/5A28xOd614wlHULAMQcE70vmQK3g==}
     dependencies:
@@ -3026,6 +3058,14 @@ packages:
 
   /lucide-react@0.330.0(react@18.2.0):
     resolution: {integrity: sha512-CQwY+Fpbt2kxCoVhuN0RCZDCYlbYnqB870Bl/vIQf3ER/cnDDQ6moLmEkguRyruAUGd4j3Lc4mtnJosXnqHheA==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /lucide-react@0.368.0(react@18.2.0):
+    resolution: {integrity: sha512-soryVrCjheZs8rbXKdINw9B8iPi5OajBJZMJ1HORig89ljcOcEokKKAgGbg3QWxSXel7JwHOfDFUdDHAKyUAMw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
@@ -3680,6 +3720,19 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
+  /react-intersection-observer@9.8.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-901naEiiZmse3p+AmtbQ3NL9xx+gQ8TXLiGDc+8GiE3JKJkNV3vP737aGuWTAXBA+1QqxPrDDE+fIEgYpGDlrQ==}
+    peerDependencies:
+      react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -4196,6 +4249,12 @@ packages:
     resolution: {integrity: sha512-o+2GTLkthfa5YUt4JxPfzMIpQzZ3adD1vLVkvKE1Twl9UAhGsEbIZhHHZVRttyW177S8PDJI3bTQNaebyofK3Q==}
     dependencies:
       '@babel/runtime': 7.23.9
+    dev: false
+
+  /tailwind-merge@2.2.2:
+    resolution: {integrity: sha512-tWANXsnmJzgw6mQ07nE3aCDkCK4QdT3ThPMCzawoYA2Pws7vSTCvz3Vrjg61jVUGfFZPJzxEP+NimbcW+EdaDw==}
+    dependencies:
+      '@babel/runtime': 7.24.4
     dev: false
 
   /tailwindcss-animate@1.0.7(tailwindcss@3.4.1):

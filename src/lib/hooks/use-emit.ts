@@ -5,7 +5,7 @@ import { JoinRoomState, useSocket } from "@/sockets/socket.provider";
 import usePatientStore from "@/stores/patient.store";
 import { SearchState, useSearchDataStore } from "@/stores/search-data.store";
 import { useEffect, useRef, useState } from "react";
-import { useInViewEx } from "./use-in-view-ex";
+import { useInViewEx } from "kbr-nextjs-shared/hooks";
 import dayjs from "dayjs";
 import { DateRangeType } from "../types/date.types";
 
