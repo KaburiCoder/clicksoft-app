@@ -54,7 +54,7 @@ interface Actions {
   clearAll: () => void;
 }
 
-const inititalState: State = {
+const initialState: State = {
   patientInfo: undefined,
   progress: undefined,
   nursingRecord: undefined,
@@ -72,7 +72,7 @@ const inititalState: State = {
 };
 
 export const useSearchDataStore = create<State & Actions>((set) => ({
-  ...inititalState,
+  ...initialState,
   setPatientInfo: (patientInfo) => set(() => ({ patientInfo })),
   setNursingRecord: (nursingRecord) => set(() => ({ nursingRecord })),
   setProgress: (progress) => set(() => ({ progress })),
@@ -94,5 +94,5 @@ export const useSearchDataStore = create<State & Actions>((set) => ({
   setObservationChart: (observationChart) => set({ observationChart }),
   setBasicExam: (basicExam) => set({ basicExam }),
   setPrescription: (prescription) => set({ prescription }),
-  clearAll: () => set(inititalState),
+  clearAll: () => set(initialState),
 }));
