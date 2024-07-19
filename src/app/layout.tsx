@@ -5,6 +5,7 @@ import "../styles/index";
 import { natoSansKR } from "@/fonts/fonts";
 import { cn } from "@/lib/utils";
 import Providers from "@/lib/providers";
+import { unstable_noStore as noStore } from "next/cache";
 
 export const metadata: Metadata = {
   title: "클릭소프트 웹 앱",
@@ -19,6 +20,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  if (process.env.NEXT_ENV === "ingress") noStore();
+
   return (
     <html lang="en">
       <head>
